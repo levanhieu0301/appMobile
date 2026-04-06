@@ -12,15 +12,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        val userDAO = UserDAO(this)
-
-        // thêm user test
-        userDAO.insert("admin", "123", "admin")
-
-        // kiểm tra login
-        val check = userDAO.login("admin", "123")
-
-        Log.d("TEST_LOGIN", "Login result: $check")
+//        val userDAO = UserDAO(this)
+//
+//        // thêm user test
+//        userDAO.insert("admin", "123", "admin")
+//
+//        // kiểm tra login
+//        val check = userDAO.login("admin", "123")
+//
+//        Log.d("TEST_LOGIN", "Login result: $check")
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

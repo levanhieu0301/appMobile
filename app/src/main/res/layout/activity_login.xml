@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
+
+    <!-- Header -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MEDDU"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"/>
+
+    <!-- Card -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_below="@id/title"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="6dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LOGIN"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#2196F3"
+                android:layout_gravity="center"/>
+
+            <!-- Username -->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="example@email.com"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#2196F3"/>
+
+            <!-- Password -->
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#2196F3"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forget your password"
+                android:textSize="12sp"
+                android:textColor="#2196F3"
+                android:layout_gravity="end"
+                android:layout_marginTop="5dp"/>
+
+            <!-- Button -->
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="LOGIN"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btn_gradient"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don't have an account? Sign up"
+                android:textColor="#2196F3"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
