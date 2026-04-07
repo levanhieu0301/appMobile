@@ -13,7 +13,16 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:src="@android:drawable/ic_menu_myplaces"
-        android:contentDescription="avatar"/>
+        android:contentDescription="avatar" />
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Back to login"
+        android:src="@android:drawable/ic_menu_revert"
+        app:tint="@color/white" />
 
     <!-- Card -->
     <androidx.cardview.widget.CardView
@@ -37,60 +46,63 @@
                 android:text="@string/create_account"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center" />
 
             <!-- Full Name -->
             <EditText
+                android:id="@+id/edtName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/full_name"
                 android:layout_marginTop="20dp"
-                android:inputType="textPersonName"
-                android:autofillHints="name"/>
+                android:inputType="textPersonName" />
 
             <!-- Email -->
             <EditText
+                android:id="@+id/edtUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
                 android:layout_marginTop="10dp"
-                android:inputType="textEmailAddress"
-                android:autofillHints="emailAddress"/>
+                android:inputType="textEmailAddress" />
 
             <!-- Password -->
             <EditText
+                android:id="@+id/edtPass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"
                 android:layout_marginTop="10dp"
-                android:inputType="textPassword"
-                android:autofillHints="password"/>
+                android:inputType="textPassword" />
 
             <!-- Re Password -->
             <EditText
+                android:id="@+id/edtRePass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/re_password"
                 android:layout_marginTop="10dp"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword" />
 
-            <!-- Button -->
+            <!-- Button REGISTER -->
             <Button
+                android:id="@+id/btnRegister"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="@string/login"
+                android:text="REGISTER"
                 android:layout_marginTop="20dp"
                 android:textColor="#FFFFFF"
-                android:background="@drawable/btn_gradient"/>
+                android:background="@drawable/btn_gradient" />
 
-            <!-- Text -->
+            <!-- Text quay về login -->
             <TextView
+                android:id="@+id/txtLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/already_account"
                 android:textColor="#4CAF50"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"/>
+                android:layout_marginTop="10dp" />
 
         </LinearLayout>
 

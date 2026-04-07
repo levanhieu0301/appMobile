@@ -43,6 +43,7 @@
 
             <!-- Username -->
             <EditText
+                android:id="@+id/edtUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="example@email.com"
@@ -51,6 +52,7 @@
 
             <!-- Password -->
             <EditText
+                android:id="@+id/edtPass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
@@ -59,16 +61,21 @@
                 android:backgroundTint="#2196F3"/>
 
             <TextView
+                android:id="@+id/txtForgotPass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Forget your password"
                 android:textSize="12sp"
                 android:textColor="#2196F3"
                 android:layout_gravity="end"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"
+                android:padding="5dp"
+                android:clickable="true"
+                android:focusable="true"/>
 
             <!-- Button -->
             <Button
+                android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="LOGIN"
@@ -77,6 +84,7 @@
                 android:background="@drawable/btn_gradient"/>
 
             <TextView
+                android:id="@+id/txtRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Don't have an account? Sign up"
