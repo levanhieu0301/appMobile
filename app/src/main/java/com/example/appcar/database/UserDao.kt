@@ -84,6 +84,15 @@ class UserDAO(context: Context) {
         return exists
     }
 
+    fun updateAdminWithPass(id: Int, email: String, pass: String, role: String): Int {
+        val values = ContentValues().apply {
+            put("username", email)
+            put("password", pass)
+            put("role", role)
+        }
+        return db.update("users", values, "_id=?", arrayOf(id.toString()))
+    }
+
     fun getUserCredentials(email: String): Pair<String, String>? {
         val cursor = db.rawQuery("SELECT password, role FROM users WHERE username = ?", arrayOf(email))
         if (cursor.moveToFirst()) {
