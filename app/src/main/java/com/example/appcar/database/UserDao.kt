@@ -3,10 +3,12 @@ package com.example.appcar.database
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 
 class UserDAO(context: Context) {
     private val dbHelper = AppDatabase(context)
     private val db = dbHelper.writableDatabase
+
 
     fun insert(fullName: String, username: String, password: String, role: String) {
         val values = ContentValues().apply {
@@ -15,10 +17,25 @@ class UserDAO(context: Context) {
             put("password", password)
             put("role", role)
         }
-        db.insert("users", null, values)
+        return db.insert("users", null, values)
     }
 
-    // Kiểm tra email đã có trong DB chưa
+    fun getAllAdmins(): Cursor {
+        return db.rawQuery("SELECT id as _id, username, role FROM users WHERE role = 'admin'", null)
+    }
+
+    fun updateAdmin(id: Int, newUsername: String, newRole: String): Int {
+        val values = ContentValues().apply {
+            put("username", newUsername)
+            put("role", newRole)
+        }
+        return db.update("users", values, "id = ?", arrayOf(id.toString()))
+    }
+
+    fun deleteUser(id: Int): Int {
+        return db.delete("users", "id = ?", arrayOf(id.toString()))
+    }
+
     fun isEmailExists(email: String): Boolean {
         val cursor = db.rawQuery("SELECT id FROM users WHERE username = ?", arrayOf(email))
         val exists = cursor.count > 0
@@ -26,7 +43,15 @@ class UserDAO(context: Context) {
         return exists
     }
 
-    // Lấy thông tin mật khẩu và role để validate Login
+    fun updateAdminWithPass(id: Int, email: String, pass: String, role: String): Int {
+        val values = ContentValues().apply {
+            put("username", email)
+            put("password", pass)
+            put("role", role)
+        }
+        return db.update("users", values, "_id=?", arrayOf(id.toString()))
+    }
+
     fun getUserCredentials(email: String): Pair<String, String>? {
         val cursor = db.rawQuery("SELECT password, role FROM users WHERE username = ?", arrayOf(email))
         if (cursor.moveToFirst()) {
