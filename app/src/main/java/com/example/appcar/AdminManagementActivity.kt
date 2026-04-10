@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -26,7 +27,9 @@ class AdminManagementActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_management)
-
+        findViewById<ImageView>(R.id.btnBack).setOnClickListener {
+            finish()
+        }
         userDAO = UserDAO(this)
         val rvAdmin = findViewById<RecyclerView>(R.id.rvAdmin)
         val fabAdd = findViewById<FloatingActionButton>(R.id.fabAddAdmin)
@@ -75,44 +78,66 @@ class AdminManagementActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
-    // --- CHỨC NĂNG THÊM (Email + Password + Role) ---
     private fun showAddAdminDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Thêm Admin Mới")
 
-        // Tạo giao diện nhập liệu nhanh bằng code
         val layout = LinearLayout(this)
         layout.orientation = LinearLayout.VERTICAL
         layout.setPadding(50, 40, 50, 10)
 
-        val edtEmail = EditText(this).apply { hint = "Email Đăng nhập" }
+        // FULL NAME
+        val edtFullName = EditText(this).apply {
+            hint = "Họ và tên"
+        }
+
+        val edtEmail = EditText(this).apply {
+            hint = "Email đăng nhập"
+        }
+
         val edtPass = EditText(this).apply {
             hint = "Mật khẩu"
             inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
         }
 
+        layout.addView(edtFullName)
         layout.addView(edtEmail)
         layout.addView(edtPass)
+
         builder.setView(layout)
 
         builder.setPositiveButton("Thêm") { _, _ ->
+
+            val fullName = edtFullName.text.toString().trim()
             val email = edtEmail.text.toString().trim()
             val pass = edtPass.text.toString().trim()
 
-            if (email.isNotEmpty() && pass.isNotEmpty()) {
+            if (fullName.isNotEmpty() && email.isNotEmpty() && pass.isNotEmpty()) {
+
                 if (!userDAO.isEmailExists(email)) {
-                    // Mã hóa pass và lưu với role 'admin'
+
                     val hashedPass = HashUtil.hash(pass)
-                    userDAO.insert(email, hashedPass, "admin")
+
+                    // INSERT ĐÚNG
+                    userDAO.insert(
+                        fullName,
+                        email,
+                        hashedPass,
+                        "admin"
+                    )
+
                     loadData()
                     Toast.makeText(this, "Đã thêm admin thành công", Toast.LENGTH_SHORT).show()
+
                 } else {
-                    Toast.makeText(this, "Email này đã tồn tại!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Email đã tồn tại!", Toast.LENGTH_SHORT).show()
                 }
+
             } else {
-                Toast.makeText(this, "Vui lòng nhập đủ Email và Pass", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show()
             }
         }
+
         builder.setNegativeButton("Hủy", null)
         builder.show()
     }

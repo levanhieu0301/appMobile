@@ -10,7 +10,7 @@ class UserDAO(context: Context) {
     private val db = dbHelper.writableDatabase
 
 
-    fun insert(fullName: String, username: String, password: String, role: String) {
+    fun insert(fullName: String, username: String, password: String, role: String): Long {
         val values = ContentValues().apply {
             put("full_name", fullName)
             put("username", username)

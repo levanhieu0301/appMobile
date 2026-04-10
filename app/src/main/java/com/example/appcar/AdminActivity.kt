@@ -40,7 +40,7 @@ class AdminActivity : AppCompatActivity() {
         }
 
         findViewById<TextView>(R.id.menuInfo).setOnClickListener {
-            startActivity(Intent(this, InfoActivity::class.java))
+            startActivity(Intent(this, AdminManagementActivity::class.java))
         }
 
         findViewById<TextView>(R.id.menuVoucher).setOnClickListener {

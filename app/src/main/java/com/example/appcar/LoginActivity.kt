@@ -27,7 +27,6 @@ class LoginActivity : AppCompatActivity() {
         txtForgotPass.setOnClickListener {
             val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
-            // Lưu ý: Không dùng finish() ở đây vì người dùng có thể muốn quay lại màn hình Login
         }
         // End ForgotPass
         btnLogin.setOnClickListener {
@@ -72,23 +71,6 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Email này chưa được đăng ký", Toast.LENGTH_SHORT).show()
             }
         }
-//        btnLogin.setOnClickListener {
-//            val email = edtUser.text.toString().trim()
-//
-//            // 1. Kiểm tra định dạng email (giữ lại để tránh lỗi logic)
-//            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-//                Toast.makeText(this, "Email không hợp lệ!", Toast.LENGTH_SHORT).show()
-//                return@setOnClickListener
-//            }
-//
-//            // 2. Ép buộc vào DashboardActivity
-//            Toast.makeText(this, "Đang vào chế độ TEST ADMIN", Toast.LENGTH_SHORT).show()
-//
-//            val intent = Intent(this, DashboardActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
-
 
         txtRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
