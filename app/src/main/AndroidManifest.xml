@@ -37,7 +37,12 @@
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".CreatePromotionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ManagePromotionActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
