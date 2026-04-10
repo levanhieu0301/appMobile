@@ -17,5 +17,8 @@ class DashboardActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+        findViewById<Button>(R.id.btnManagePromo).setOnClickListener {
+            startActivity(Intent(this, ManagePromotionActivity::class.java))
+        }
     }
 }

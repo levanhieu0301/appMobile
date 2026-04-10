@@ -36,4 +36,13 @@
         android:layout_marginTop="30dp"
         android:backgroundTint="#D32F2F"
         android:textColor="#FFFFFF"/>
+    <!-- Thêm nút quản lý mã khuyến mãi -->
+    <Button
+        android:id="@+id/btnManagePromo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QUẢN LÝ MÃ GIẢM GIÁ"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#4CAF50"
+        android:textColor="#FFFFFF"/>
 </LinearLayout>
