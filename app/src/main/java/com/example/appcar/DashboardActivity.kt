@@ -16,29 +16,29 @@ class DashboardActivity : AppCompatActivity() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
         // 2. Xử lý sự kiện khi click vào các mục trên Menu
-        bottomNav.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    Toast.makeText(this, "Đang ở Trang chủ", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_service -> {
-                    Toast.makeText(this, "Dịch vụ xe", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_history -> {
-                    Toast.makeText(this, "Lịch sử giao dịch", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                R.id.nav_admin -> {
-                    // Chuyển sang trang Quản lý Admin đã tạo trước đó
-                    val intent = Intent(this, AdminManagementActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                else -> false
-            }
-        }
+//        bottomNav.setOnItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.nav_home -> {
+//                    Toast.makeText(this, "Đang ở Trang chủ", Toast.LENGTH_SHORT).show()
+//                    true
+//                }
+//                R.id.nav_service -> {
+//                    Toast.makeText(this, "Dịch vụ xe", Toast.LENGTH_SHORT).show()
+//                    true
+//                }
+//                R.id.nav_history -> {
+//                    Toast.makeText(this, "Lịch sử giao dịch", Toast.LENGTH_SHORT).show()
+//                    true
+//                }
+//                R.id.nav_admin -> {
+//                    // Chuyển sang trang Quản lý Admin đã tạo trước đó
+//                    val intent = Intent(this, AdminManagementActivity::class.java)
+//                    startActivity(intent)
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
 
         // 3. Giữ lại chức năng Logout (Nếu bạn vẫn để nút này trong layout)
         findViewById<Button>(R.id.btnLogoutAdmin)?.setOnClickListener {

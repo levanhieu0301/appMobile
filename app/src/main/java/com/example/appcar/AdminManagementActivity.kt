@@ -48,19 +48,19 @@ class AdminManagementActivity : AppCompatActivity() {
         fabAdd.setOnClickListener {
             showAddAdminDialog()
         }
-
-        bottomNav.selectedItemId = R.id.nav_admin
-        bottomNav.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home -> {
-                    startActivity(Intent(this, DashboardActivity::class.java))
-                    finish()
-                    true
-                }
-                R.id.nav_admin -> true
-                else -> false
-            }
-        }
+//
+//        bottomNav.selectedItemId = R.id.nav_admin
+//        bottomNav.setOnItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.nav_home -> {
+//                    startActivity(Intent(this, DashboardActivity::class.java))
+//                    finish()
+//                    true
+//                }
+//                R.id.nav_admin -> true
+//                else -> false
+//            }
+//        }
     }
 
     private fun loadData() {
