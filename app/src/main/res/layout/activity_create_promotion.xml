@@ -1,79 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#F5F5F5"
     android:padding="20dp">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="?attr/actionBarSize"
+        android:background="#2196F3"
+        android:title="Tạo mã mới"
+        android:titleTextColor="#FFFFFF"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:navigationContentDescription="Quay lại" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TẠO MÃ GIẢM GIÁ"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="#2196F3"
-            android:layout_gravity="center" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
 
-        <EditText
-            android:id="@+id/edtCode"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Mã code"
-            android:layout_marginTop="20dp"
-            android:padding="12dp"
-            android:background="@android:drawable/editbox_background" />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/edtPercent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Phần trăm giảm (0-100)"
-            android:layout_marginTop="12dp"
-            android:inputType="number"
-            android:padding="12dp"
-            android:background="@android:drawable/editbox_background" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TẠO MÃ GIẢM GIÁ"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#2196F3"
+                android:layout_gravity="center" />
 
-        <EditText
-            android:id="@+id/edtExpiry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Ngày hết hạn (yyyy-mm-dd)"
-            android:layout_marginTop="12dp"
-            android:inputType="date"
-            android:padding="12dp"
-            android:background="@android:drawable/editbox_background" />
+            <EditText
+                android:id="@+id/edtCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mã code"
+                android:layout_marginTop="20dp"
+                android:padding="12dp"
+                android:background="@android:drawable/editbox_background" />
 
-        <EditText
-            android:id="@+id/edtLimit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Giới hạn số lượt sử dụng"
-            android:layout_marginTop="12dp"
-            android:inputType="number"
-            android:padding="12dp"
-            android:background="@android:drawable/editbox_background" />
+            <EditText
+                android:id="@+id/edtPercent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phần trăm giảm (0-100)"
+                android:layout_marginTop="12dp"
+                android:inputType="number"
+                android:padding="12dp"
+                android:background="@android:drawable/editbox_background" />
 
-        <Button
-            android:id="@+id/btnSave"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="LƯU MÃ"
-            android:layout_marginTop="30dp"
-            android:backgroundTint="#4CAF50"
-            android:textColor="#FFFFFF" />
+            <EditText
+                android:id="@+id/edtExpiry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ngày hết hạn (yyyy-mm-dd)"
+                android:layout_marginTop="12dp"
+                android:inputType="date"
+                android:padding="12dp"
+                android:background="@android:drawable/editbox_background" />
 
-        <Button
-            android:id="@+id/btnCancel"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="HỦY"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="#9E9E9E"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
-</ScrollView>
+            <EditText
+                android:id="@+id/edtLimit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Giới hạn số lượt sử dụng"
+                android:layout_marginTop="12dp"
+                android:inputType="number"
+                android:padding="12dp"
+                android:background="@android:drawable/editbox_background" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="LƯU MÃ"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="#4CAF50"
+                android:textColor="#FFFFFF" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="HỦY"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="#9E9E9E"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

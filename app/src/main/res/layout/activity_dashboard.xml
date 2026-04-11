@@ -44,29 +44,13 @@
             android:backgroundTint="#D32F2F"
             android:text="LOGOUT"
             android:textColor="#FFFFFF" />
+        <Button
+            android:id="@+id/btnManagePromo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QUẢN LÝ MÃ GIẢM GIÁ"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"/>
     </LinearLayout>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="LOGOUT"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="#D32F2F"
-        android:textColor="#FFFFFF"/>
-    <!-- Thêm nút quản lý mã khuyến mãi -->
-    <Button
-        android:id="@+id/btnManagePromo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="QUẢN LÝ MÃ GIẢM GIÁ"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#4CAF50"
-        android:textColor="#FFFFFF"/>
-</LinearLayout>
-
-        android:background="#FFFFFF"
-        app:elevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>

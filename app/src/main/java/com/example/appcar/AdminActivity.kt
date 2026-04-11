@@ -46,6 +46,9 @@ class AdminActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.menuVoucher).setOnClickListener {
             startActivity(Intent(this, VoucherActivity::class.java))
         }
+        findViewById<TextView>(R.id.menuVoucher).setOnClickListener {
+            startActivity(Intent(this, ManagePromotionActivity::class.java))
+        }
 
         findViewById<TextView>(R.id.menuHistory).setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
