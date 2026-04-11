@@ -1,50 +1,4 @@
-//package com.example.appcar
-//
-//import android.content.Intent
-//import android.os.Bundle
-//import android.widget.*
-//import androidx.appcompat.app.AppCompatActivity
-//import com.example.appcar.database.UserDAO
-//import com.example.appcar.utils.HashUtil
-//
-//class LoginActivity : AppCompatActivity() {
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_login)
-//
-//        val edtUser = findViewById<EditText>(R.id.edtUser)
-//        val edtPass = findViewById<EditText>(R.id.edtPass)
-//        val btnLogin = findViewById<Button>(R.id.btnLogin)
-//        val txtRegister = findViewById<TextView>(R.id.txtRegister)
-//
-//        val userDAO = UserDAO(this)
-//
-//        btnLogin.setOnClickListener {
-//            val u = edtUser.text.toString()
-//            val p = edtPass.text.toString()
-//
-//            val role = userDAO.loginAndGetRole(u, p) // trả về role
-//
-//            if (role != null) {
-//                Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show()
-//
-//                if (role == "admin") {
-//                    Toast.makeText(this, "Admin", Toast.LENGTH_SHORT).show()
-//                } else {
-//                    Toast.makeText(this, "User", Toast.LENGTH_SHORT).show()
-//                }
-//
-//            } else {
-//                Toast.makeText(this, "Sai tài khoản", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//
-//        txtRegister.setOnClickListener {
-//            startActivity(Intent(this, RegisterActivity::class.java))
-//        }
-//    }
-//}
+
 package com.example.appcar
 
 import android.content.Intent
@@ -73,7 +27,6 @@ class LoginActivity : AppCompatActivity() {
         txtForgotPass.setOnClickListener {
             val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
-            // Lưu ý: Không dùng finish() ở đây vì người dùng có thể muốn quay lại màn hình Login
         }
         // End ForgotPass
         btnLogin.setOnClickListener {
@@ -101,9 +54,14 @@ class LoginActivity : AppCompatActivity() {
 
                     // Chuyển trang dựa trên Role
                     if (role.lowercase() == "admin") {
-                        startActivity(Intent(this, DashboardActivity::class.java))
+                        val intent = Intent(this, AdminActivity::class.java)
+                        intent.putExtra("EMAIL", email)
+                        startActivity(intent)
+
                     } else {
-                        startActivity(Intent(this, HomeActivity::class.java))
+                        val intent = Intent(this, HomeActivity::class.java)
+                        intent.putExtra("EMAIL", email)
+                        startActivity(intent)
                     }
                     finish()
                 } else {

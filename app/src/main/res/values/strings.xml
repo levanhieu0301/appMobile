@@ -7,4 +7,20 @@
     <string name="re_password">Re-type Password</string>
     <string name="login">LOGIN</string>
     <string name="already_account">Already have an account?</string>
+    // Trang admin
+    <string name="menu">Menu</string>
+    <string name="avatar">Avatar</string>
+
+    <string name="logo">MEDDU</string>
+    <string name="user_name">Hieu</string>
+    <string name="full_name_admin">Mathilda Reynolds</string>
+
+    <string name="dashboard">Dashboard</string>
+    <string name="manage_info">Quản lý thông tin</string>
+    <string name="voucher">Mã giảm giá</string>
+    <string name="history">Lịch sử</string>
+
+
+
+    // End Trang Admin
 </resources>
