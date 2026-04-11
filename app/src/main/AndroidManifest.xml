@@ -41,9 +41,14 @@
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
+            android:name=".CreatePromotionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ManagePromotionActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdminActivity"
             android:exported="false" />
-
         <activity
             android:name=".AdminManagementActivity"
             android:exported="false"
