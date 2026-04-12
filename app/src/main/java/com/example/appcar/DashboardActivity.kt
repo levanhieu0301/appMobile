@@ -12,8 +12,8 @@ class DashboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
-        // 1. Ánh xạ Bottom Navigation View
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+//        // 1. Ánh xạ Bottom Navigation View
+//        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
         // 2. Xử lý sự kiện khi click vào các mục trên Menu
 //        bottomNav.setOnItemSelectedListener { item ->
