@@ -28,6 +28,15 @@ class AppDatabase(context: Context) : SQLiteOpenHelper(
                     "used_count INTEGER DEFAULT 0," +
                     "is_active INTEGER DEFAULT 1)"
         )
+        db.execSQL(
+            "CREATE TABLE repair_history (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "customer_name TEXT," +
+                    "car_model TEXT," +
+                    "repair_date TEXT," +
+                    "description TEXT," +
+                    "cost TEXT)"
+        )
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
