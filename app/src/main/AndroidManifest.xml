@@ -56,12 +56,14 @@
             android:name=".AdminManagementActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
+
         <activity
             android:name=".RepairHistoryActivity"
             android:exported="false" />
         <activity
             android:name=".HistoryActivity"
             android:exported="false" />
+
     </application>
 
 </manifest>
