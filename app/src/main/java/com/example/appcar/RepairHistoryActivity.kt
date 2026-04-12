@@ -3,6 +3,7 @@ package com.example.appcar
 import android.app.AlertDialog
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,9 +18,15 @@ class RepairHistoryActivity : AppCompatActivity() {
     private lateinit var dao: RepairHistoryDAO
     private lateinit var adapter: RepairHistoryAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repair_history)
+        val btnBack = findViewById<ImageButton>(R.id.btnBack)
+        // 1. Khi click vào nút mũi tên
+        btnBack.setOnClickListener {
+            finish() // Đóng RegisterActivity, tự động quay về màn hình Login đang chờ bên dưới
+        }
 
         rvHistory = findViewById(R.id.rvRepairHistory)
         dao = RepairHistoryDAO(this)
@@ -38,7 +45,6 @@ class RepairHistoryActivity : AppCompatActivity() {
         val list = dao.getAll()
         adapter.updateData(list)
     }
-
     // Chỉ còn dialog SỬA, không có dialog THÊM
     private fun showEditDialog(history: RepairHistory) {
         val dialogView = layoutInflater.inflate(R.layout.dialog_repair, null)

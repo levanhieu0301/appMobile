@@ -62,7 +62,8 @@
             android:exported="false" />
         <activity
             android:name=".HistoryActivity"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
 
     </application>
 
