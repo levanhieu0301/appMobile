@@ -25,7 +25,7 @@
                 android:id="@+id/txtNameService"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tên dịch vụ"
+                android:text="@string/serviceName"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#333333"/>
@@ -43,7 +43,7 @@
                 android:id="@+id/txtDescService"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mô tả ngắn gọn về dịch vụ này..."
+                android:text="@string/serviceDescription"
                 android:textSize="14sp"
                 android:textColor="#666666"
                 android:layout_marginTop="4dp"/>
