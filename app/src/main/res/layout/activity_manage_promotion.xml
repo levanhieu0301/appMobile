@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:text="QUẢN LÝ MÃ GIẢM GIÁ"
+        android:text="@string/manage_voucher"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="#FFFFFF"
