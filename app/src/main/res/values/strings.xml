@@ -11,11 +11,7 @@
     // Trang admin
     <string name="menu">Menu</string>
     <string name="avatar">Avatar</string>
-
     <string name="logo">MEDDU</string>
-
-
-
     <string name="dashboard">Tổng quan</string>
     <string name="manage_info">Quản lý thông tin</string>
     <string name="voucher">Mã giảm giá</string>
