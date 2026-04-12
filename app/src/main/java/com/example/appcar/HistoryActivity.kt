@@ -82,6 +82,7 @@ class HistoryActivity : AppCompatActivity() {
                 val status = cursor.getString(cursor.getColumnIndexOrThrow("status"))
                 val price = cursor.getLong(cursor.getColumnIndexOrThrow("price"))
 
+                // Truyền vào đúng thứ tự của data class Appointment
                 appointmentList.add(Appointment(id, name, date, loc, status, price))
             } while (cursor.moveToNext())
         }

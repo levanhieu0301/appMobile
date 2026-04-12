@@ -37,7 +37,17 @@ class AppDatabase(context: Context) : SQLiteOpenHelper(
                     "description TEXT," +
                     "cost TEXT)"
         )
+        db.execSQL(
+            "CREATE TABLE appointments (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "name TEXT," + // Tương ứng với serviceName
+                    "date TEXT," +
+                    "loc TEXT," +  // Tương ứng với location
+                    "status TEXT," +
+                    "price INTEGER)"
+        )
     }
+
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS users")
