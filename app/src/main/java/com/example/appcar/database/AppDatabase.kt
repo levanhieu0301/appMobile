@@ -39,6 +39,7 @@ class AppDatabase(context: Context) : SQLiteOpenHelper(
                     "name_service TEXT NOT NULL," +
                     "price_service REAL NOT NULL," + // REAL cho kiểu dữ liệu số thực (tiền)
                     "description TEXT)"
+        )
         db.execSQL(
             "CREATE TABLE repair_history (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -65,6 +66,8 @@ class AppDatabase(context: Context) : SQLiteOpenHelper(
             db.execSQL("DROP TABLE IF EXISTS users")
             db.execSQL("DROP TABLE IF EXISTS promotions")
             db.execSQL("DROP TABLE IF EXISTS services")
+            db.execSQL("DROP TABLE IF EXISTS repair_history")
+            db.execSQL("DROP TABLE IF EXISTS appointments")
             onCreate(db)
         }
     }
