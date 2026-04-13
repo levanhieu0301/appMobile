@@ -16,6 +16,15 @@
     <string name="manage_info">Quản lý thông tin</string>
     <string name="voucher">Mã giảm giá</string>
     <string name="history">Lịch sử đặt lịch</string>
+    <string name="user">User</string>
+    <string name="descriptionLogo">logo</string>
+    <string name="logOut">Đăng xuất</string>
+    <string name="back_to_login">Back to login</string>
+    <string name="adminManagement">Quản lý Admin</string>
+    <string name="serviceName">Tên dịch vụ</string>
+    <string name="serviceDescription">Mô tả ngắn gọn về dịch vụ này...</string>
+    <string name="back">Back</string>
+    <string name="serviceManagement">Quản lý Dịch vụ</string>
     <string name="repair_history">Lịch sử sửa xe</string>
 
 

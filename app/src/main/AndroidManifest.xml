@@ -59,6 +59,10 @@
             android:name=".AdminManagementActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
+<!--        <activity-->
+<!--            android:name=".ServiceManagementActivity"-->
+<!--            android:exported="false"-->
+<!--            android:windowSoftInputMode="adjustPan" />-->
 
         <activity
             android:name=".RepairHistoryActivity"
