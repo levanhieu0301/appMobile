@@ -28,7 +28,6 @@ class RepairHistoryDAO(context: Context) {
         return list
     }
 
-    // Thêm mới (không bắt buộc nhưng để Admin có thể thêm nếu muốn)
     fun insert(history: RepairHistory): Long {
         val values = ContentValues().apply {
             put("customer_name", history.customerName)
