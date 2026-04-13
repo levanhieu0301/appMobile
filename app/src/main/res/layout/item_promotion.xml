@@ -56,13 +56,34 @@
             android:textSize="12sp"
             android:textColor="#999999" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="4dp">
+
+
         <Button
             android:id="@+id/btnDelete"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
+            android:layout_weight="1"
             android:text="Xoá"
-            android:textSize="12sp"
+            android:textSize="14sp"
+            android:textStyle="bold"
             android:backgroundTint="#F44336"
-            android:layout_marginTop="8dp" />
+            android:layout_marginStart="4dp"/>
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:text="Sửa"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:backgroundTint="#2196F3"
+            android:textColor="#FF9800"
+            android:layout_marginEnd="4dp" />
+         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -11,6 +11,7 @@ import com.example.appcar.database.Promotion
 
 class PromotionAdapter(
     private val list: MutableList<Promotion>,
+    private val onEditClick: (Promotion) -> Unit,
     private val onDeleteClick: (Promotion) -> Unit
 ) : RecyclerView.Adapter<PromotionAdapter.ViewHolder>() {
 
@@ -25,6 +26,7 @@ class PromotionAdapter(
         holder.tvDiscount.text = "${item.discountPercent}%"
         holder.tvExpiry.text = "Hết hạn: ${item.expiryDate}"
         holder.tvUsage.text = "Đã dùng: ${item.usedCount} / ${item.usageLimit}"
+        holder.btnEdit.setOnClickListener { onEditClick(item) }
         holder.btnDelete.setOnClickListener { onDeleteClick(item) }
     }
 
@@ -35,6 +37,9 @@ class PromotionAdapter(
         val tvDiscount: TextView = itemView.findViewById(R.id.tvDiscount)
         val tvExpiry: TextView = itemView.findViewById(R.id.tvExpiry)
         val tvUsage: TextView = itemView.findViewById(R.id.tvUsage)
+
+        val btnEdit: Button = itemView.findViewById(R.id.btnEdit)
         val btnDelete: Button = itemView.findViewById(R.id.btnDelete)
     }
+
 }

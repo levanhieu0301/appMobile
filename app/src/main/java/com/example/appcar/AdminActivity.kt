@@ -50,6 +50,12 @@ class AdminActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.menuHistory).setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
         }
+
+        // Thêm sự kiện cho Lịch sử sửa xe
+        findViewById<TextView>(R.id.repair_history).setOnClickListener {
+            startActivity(Intent(this, RepairHistoryActivity::class.java))
+        }
+
         findViewById<TextView>(R.id.menuLogout).setOnClickListener {
 
             //Xóa session nếu có (optional)

@@ -64,4 +64,16 @@ class PromotionDAO(context: Context) {
         cursor.close()
         return null
     }
+    // Hàm cập nhật thông tin mã khuyến mãi (không thay đổi used_count, is_active)
+    fun update(id: Int, code: String, discountPercent: Int, expiryDate: String, usageLimit: Int): Boolean {
+        val values = ContentValues().apply {
+            put("code", code)
+            put("discount_percent", discountPercent)
+            put("expiry_date", expiryDate)
+            put("usage_limit", usageLimit)
+        }
+        val rows = db.update("promotions", values, "id = ?", arrayOf(id.toString()))
+        return rows > 0
+    }
+
 }

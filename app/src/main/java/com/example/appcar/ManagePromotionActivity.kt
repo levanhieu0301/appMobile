@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appcar.adapter.PromotionAdapter
@@ -22,16 +23,31 @@ class ManagePromotionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_promotion)
 
+        // Toolbar
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
         rvPromotions = findViewById(R.id.rvPromotions)
         btnAdd = findViewById(R.id.btnAddPromotion)
         dao = PromotionDAO(this)
 
         rvPromotions.layoutManager = LinearLayoutManager(this)
-        adapter = PromotionAdapter(promotionList) { promotion ->
-            dao.deleteById(promotion.id)
-            loadData()
-            Toast.makeText(this, "Đã xoá mã ${promotion.code}", Toast.LENGTH_SHORT).show()
-        }
+        adapter = PromotionAdapter(
+            promotionList,
+            onEditClick = { promotion ->
+                // Mở màn hình chỉnh sửa, truyền id của promotion
+                val intent = Intent(this, EditPromotionActivity::class.java)
+                intent.putExtra("promotion_id", promotion.id)
+                startActivity(intent)
+            },
+            onDeleteClick = { promotion ->
+                dao.deleteById(promotion.id)
+                loadData()
+                Toast.makeText(this, "Đã xoá mã ${promotion.code}", Toast.LENGTH_SHORT).show()
+            }
+        )
         rvPromotions.adapter = adapter
 
         btnAdd.setOnClickListener {
@@ -50,5 +66,11 @@ class ManagePromotionActivity : AppCompatActivity() {
         promotionList.clear()
         promotionList.addAll(dao.getAll())
         adapter.notifyDataSetChanged()
+    }
+
+    // BẮT BUỘC: xử lý khi nhấn nút back
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressedDispatcher.onBackPressed()  // hoặc finish()
+        return true
     }
 }
