@@ -9,7 +9,7 @@ class RepairHistoryDAO(context: Context) {
     private val dbHelper = AppDatabase(context)
     private val db = dbHelper.writableDatabase
 
-    // Lấy tất cả bản ghi (dùng cho Admin xem)
+    // Lấy tất cả bản ghi
     fun getAll(): List<RepairHistory> {
         val list = mutableListOf<RepairHistory>()
         val cursor: Cursor = db.rawQuery("SELECT * FROM repair_history ORDER BY id DESC", null)
@@ -28,6 +28,7 @@ class RepairHistoryDAO(context: Context) {
         return list
     }
 
+    // Thêm mới
     fun insert(history: RepairHistory): Long {
         val values = ContentValues().apply {
             put("customer_name", history.customerName)
@@ -37,18 +38,6 @@ class RepairHistoryDAO(context: Context) {
             put("cost", history.cost)
         }
         return db.insert("repair_history", null, values)
-    }
-
-    // Cập nhật bản ghi
-    fun update(history: RepairHistory): Int {
-        val values = ContentValues().apply {
-            put("customer_name", history.customerName)
-            put("car_model", history.carModel)
-            put("repair_date", history.repairDate)
-            put("description", history.description)
-            put("cost", history.cost)
-        }
-        return db.update("repair_history", values, "id = ?", arrayOf(history.id.toString()))
     }
 
     // Xóa bản ghi
