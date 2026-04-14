@@ -50,5 +50,8 @@ class DashboardActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnManagePromo).setOnClickListener {
             startActivity(Intent(this, ManagePromotionActivity::class.java))
         }
+        findViewById<Button>(R.id.btnManageRepairHistory).setOnClickListener {
+            startActivity(Intent(this, RepairHistoryActivity::class.java))
+        }
     }
 }

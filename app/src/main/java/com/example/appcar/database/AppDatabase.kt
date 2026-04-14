@@ -40,13 +40,34 @@ class AppDatabase(context: Context) : SQLiteOpenHelper(
                     "price_service REAL NOT NULL," + // REAL cho kiểu dữ liệu số thực (tiền)
                     "description TEXT)"
         )
+        db.execSQL(
+            "CREATE TABLE repair_history (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "customer_name TEXT," +
+                    "car_model TEXT," +
+                    "repair_date TEXT," +
+                    "description TEXT," +
+                    "cost TEXT)"
+        )
+        db.execSQL(
+            "CREATE TABLE appointments (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "name TEXT," + // Tương ứng với serviceName
+                    "date TEXT," +
+                    "loc TEXT," +  // Tương ứng với location
+                    "status TEXT," +
+                    "price INTEGER)"
+        )
     }
+
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         if (oldVersion < newVersion) {
             db.execSQL("DROP TABLE IF EXISTS users")
             db.execSQL("DROP TABLE IF EXISTS promotions")
             db.execSQL("DROP TABLE IF EXISTS services")
+            db.execSQL("DROP TABLE IF EXISTS repair_history")
+            db.execSQL("DROP TABLE IF EXISTS appointments")
             onCreate(db)
         }
     }
