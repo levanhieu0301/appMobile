@@ -1,6 +1,5 @@
 package com.example.appcar
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
@@ -14,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appcar.adapter.AdminAdapter
 import com.example.appcar.adapter.User
 import com.example.appcar.database.UserDAO
-import com.example.appcar.utils.HashUtil // Nhớ import HashUtil của bạn
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.appcar.utils.HashUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class AdminManagementActivity : AppCompatActivity() {
@@ -33,7 +31,6 @@ class AdminManagementActivity : AppCompatActivity() {
         userDAO = UserDAO(this)
         val rvAdmin = findViewById<RecyclerView>(R.id.rvAdmin)
         val fabAdd = findViewById<FloatingActionButton>(R.id.fabAddAdmin)
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
         adapter = AdminAdapter(
             adminList,
