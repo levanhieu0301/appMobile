@@ -1,4 +1,3 @@
-
 package com.example.appcar
 
 import android.content.Intent
@@ -19,45 +18,44 @@ class LoginActivity : AppCompatActivity() {
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         val txtRegister = findViewById<TextView>(R.id.txtRegister)
         val userDAO = UserDAO(this)
-        // ForgotPass
-        // 1. Ánh xạ View
-        val txtForgotPass = findViewById<TextView>(R.id.txtForgotPass)
 
-        // 2. Thiết lập sự kiện click
+        // --- Tự động tạo tài khoản Admin để test ---
+        if (!userDAO.isEmailExists("admin@gmail.com")) {
+            userDAO.insert("Quản trị viên", "admin@gmail.com", HashUtil.hash("123456"), "admin")
+        }
+        // ------------------------------------------
+
+        // ForgotPass
+        val txtForgotPass = findViewById<TextView>(R.id.txtForgotPass)
         txtForgotPass.setOnClickListener {
             val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
         }
-        // End ForgotPass
+        
         btnLogin.setOnClickListener {
             val email = edtUser.text.toString().trim()
             val passInput = edtPass.text.toString().trim()
 
-            // 1. Kiểm tra định dạng Email
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Toast.makeText(this, "Email không hợp lệ!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // 2. Lấy thông tin từ DB dựa trên Email
             val credentials = userDAO.getUserCredentials(email)
 
             if (credentials != null) {
                 val dbPasswordHash = credentials.first
                 val role = credentials.second
-
-                // 3. Mã hóa pass người dùng gõ vào và so sánh với pass trong DB
                 val hashedInput = HashUtil.hash(passInput)
 
                 if (hashedInput == dbPasswordHash) {
                     Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show()
 
-                    // Chuyển trang dựa trên Role
                     if (role.lowercase() == "admin") {
-                        val intent = Intent(this, AdminActivity::class.java)
+                        // Chuyển trực tiếp đến DashboardActivity để tiện quản lý
+                        val intent = Intent(this, DashboardActivity::class.java)
                         intent.putExtra("EMAIL", email)
                         startActivity(intent)
-
                     } else {
                         val intent = Intent(this, HomeActivity::class.java)
                         intent.putExtra("EMAIL", email)

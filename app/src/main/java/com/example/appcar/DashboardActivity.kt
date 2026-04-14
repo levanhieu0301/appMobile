@@ -2,56 +2,97 @@ package com.example.appcar
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.appcar.database.UserDAO
+import com.google.android.material.card.MaterialCardView
 
 class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
-//        // 1. Ánh xạ Bottom Navigation View
-//        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        // 1. Ánh xạ View
+        val txtAdminInfo = findViewById<TextView>(R.id.txtAdminInfo)
+        val tvStatUser = findViewById<TextView>(R.id.tvStatUser)
+        val tvStatRevenue = findViewById<TextView>(R.id.tvStatRevenue)
+        val btnLogoutAdmin = findViewById<ImageButton>(R.id.btnLogoutAdmin)
+        
+        val userDAO = UserDAO(this)
 
-        // 2. Xử lý sự kiện khi click vào các mục trên Menu
-//        bottomNav.setOnItemSelectedListener { item ->
-//            when (item.itemId) {
-//                R.id.nav_home -> {
-//                    Toast.makeText(this, "Đang ở Trang chủ", Toast.LENGTH_SHORT).show()
-//                    true
-//                }
-//                R.id.nav_service -> {
-//                    Toast.makeText(this, "Dịch vụ xe", Toast.LENGTH_SHORT).show()
-//                    true
-//                }
-//                R.id.nav_history -> {
-//                    Toast.makeText(this, "Lịch sử giao dịch", Toast.LENGTH_SHORT).show()
-//                    true
-//                }
-//                R.id.nav_admin -> {
-//                    // Chuyển sang trang Quản lý Admin đã tạo trước đó
-//                    val intent = Intent(this, AdminManagementActivity::class.java)
-//                    startActivity(intent)
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
+        // 2. Hiển thị thông tin Admin
+        val email = intent.getStringExtra("EMAIL")
+        if (email != null) {
+            val fullName = userDAO.getFullNameByEmail(email)
+            txtAdminInfo.text = "Chào mừng trở lại, ${fullName ?: "Admin"}"
+        }
 
-        // 3. Giữ lại chức năng Logout (Nếu bạn vẫn để nút này trong layout)
-        findViewById<Button>(R.id.btnLogoutAdmin)?.setOnClickListener {
+        // 3. Cập nhật thông số thống kê giả định
+        tvStatUser.text = "+24"
+        tvStatRevenue.text = "2.4M VNĐ"
+        // viết hàm đếm số người dùng mới trong ngày trong UserDAO
+//        val newUserCount = userDAO.getNewUsersToday()
+//        tvStatUser.text = "+$newUserCount"
+//
+//        // viết hàm tính tổng tiền sửa xe hôm nay
+//        val dailyRevenue = repairDAO.getTodayRevenue()
+//        tvStatRevenue.text = String.format("%,2d VNĐ", dailyRevenue)
+        // 4. Thiết lập sự kiện cho các Card Menu chính
+        setupCardMenu()
+
+        // 5. Thiết lập sự kiện cho Thanh điều hướng dưới (Bottom Nav)
+        setupBottomNavigation()
+
+        // 6. Xử lý Đăng xuất
+        btnLogoutAdmin.setOnClickListener {
+            val prefs = getSharedPreferences("USER", MODE_PRIVATE)
+            prefs.edit().clear().apply()
+
             val intent = Intent(this, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
+
+            Toast.makeText(this, "Đã đăng xuất thành công", Toast.LENGTH_SHORT).show()
             finish()
         }
-        findViewById<Button>(R.id.btnManagePromo).setOnClickListener {
+    }
+
+    private fun setupCardMenu() {
+        findViewById<MaterialCardView>(R.id.btnManagePromo).setOnClickListener {
             startActivity(Intent(this, ManagePromotionActivity::class.java))
         }
-        findViewById<Button>(R.id.btnManageRepairHistory).setOnClickListener {
+
+        findViewById<MaterialCardView>(R.id.btnManageRepairHistory).setOnClickListener {
             startActivity(Intent(this, RepairHistoryActivity::class.java))
+        }
+
+        findViewById<MaterialCardView>(R.id.btnAdminManagement).setOnClickListener {
+            startActivity(Intent(this, AdminManagementActivity::class.java))
+        }
+
+        findViewById<MaterialCardView>(R.id.btnTransactionHistory).setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
+        }
+    }
+
+    private fun setupBottomNavigation() {
+        findViewById<LinearLayout>(R.id.navPromo).setOnClickListener {
+            startActivity(Intent(this, ManagePromotionActivity::class.java))
+        }
+
+        findViewById<LinearLayout>(R.id.navRepair).setOnClickListener {
+            startActivity(Intent(this, RepairHistoryActivity::class.java))
+        }
+
+        findViewById<LinearLayout>(R.id.navAdmin).setOnClickListener {
+            startActivity(Intent(this, AdminManagementActivity::class.java))
+        }
+
+        findViewById<LinearLayout>(R.id.navHistory).setOnClickListener {
+            startActivity(Intent(this, HistoryActivity::class.java))
         }
     }
 }

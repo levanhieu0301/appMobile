@@ -36,31 +36,27 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
-        // Quay lại
         binding.btnBack.setOnClickListener {
             finish()
         }
 
-        // Lọc
         binding.btnAll.setOnClickListener {
             loadData()
             Toast.makeText(this, "Hiển thị tất cả", Toast.LENGTH_SHORT).show()
         }
 
-        // Lọc: Hoàn thành (Khớp ID btnDone)
         binding.btnDone.setOnClickListener {
             filterData("Hoàn thành")
         }
 
-        // Lọc: Đã hủy (Khớp ID btnCancel)
         binding.btnCancel.setOnClickListener {
             filterData("Đã hủy")
         }
-
     }
 
     private fun loadData() {
         appointmentList.clear()
+        // Lấy dữ liệu trực tiếp từ SQL thông qua DAO
         val cursor = appointmentDAO.getAllAppointments()
         readCursor(cursor)
     }
@@ -82,11 +78,12 @@ class HistoryActivity : AppCompatActivity() {
                 val status = cursor.getString(cursor.getColumnIndexOrThrow("status"))
                 val price = cursor.getLong(cursor.getColumnIndexOrThrow("price"))
 
-                // Truyền vào đúng thứ tự của data class Appointment
+                // Thêm vào danh sách để hiển thị lên giao diện
                 appointmentList.add(Appointment(id, name, date, loc, status, price))
             } while (cursor.moveToNext())
         }
         cursor.close()
+        // Cập nhật lại giao diện sau khi đọc xong SQL
         adapter.notifyDataSetChanged()
     }
 }

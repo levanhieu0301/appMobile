@@ -1,5 +1,6 @@
 package com.example.appcar.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,14 +28,16 @@ class AppointmentAdapter(private val list: List<Appointment>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
 
-        // Sửa lỗi hiển thị text (Dùng String Template để tránh lỗi concatenate)
         holder.tvServiceName.text = item.serviceName
         holder.tvDate.text = item.date
+        holder.tvPrice.text = String.format("%,d VNĐ", item.price)
         holder.tvStatus.text = item.status
 
-        // Hiển thị giá tiền với đơn vị
-        val priceText = "${item.price} VNĐ"
-        holder.tvPrice.text = priceText
+        when (item.status) {
+            "Hoàn thành" -> holder.tvStatus.setTextColor(Color.parseColor("#4CAF50"))
+            "Đã hủy" -> holder.tvStatus.setTextColor(Color.parseColor("#F44336"))
+            else -> holder.tvStatus.setTextColor(Color.parseColor("#FF9800"))
+        }
     }
 
     override fun getItemCount(): Int = list.size
