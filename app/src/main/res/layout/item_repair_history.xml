@@ -8,65 +8,71 @@
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tvCustomerName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Khách: ..."
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#1976D2"
-            android:layout_marginBottom="4dp" />
-
-        <TextView
-            android:id="@+id/tvCarModel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Xe: ..."
-            android:layout_marginBottom="2dp" />
-
-        <TextView
-            android:id="@+id/tvRepairDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ngày: ..."
-            android:layout_marginBottom="2dp" />
-
-        <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mô tả: ..."
-            android:layout_marginBottom="2dp" />
-
-        <TextView
-            android:id="@+id/tvCost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chi phí: ..."
-            android:textColor="#D32F2F"
-            android:textStyle="bold" />
-
+        <!-- Phần thông tin bên trái -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="12dp">
+            android:layout_toStartOf="@+id/btnDelete"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnDelete"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvCustomerName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Xóa"
-                android:backgroundTint="#F44336"
-                android:textColor="#FFFFFF" />
+                android:text="Khách: ..."
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#1976D2"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvCarModel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Xe: ..."
+                android:layout_marginBottom="2dp" />
+
+            <TextView
+                android:id="@+id/tvRepairDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày: ..."
+                android:layout_marginBottom="2dp" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mô tả: ..."
+                android:layout_marginBottom="2dp" />
+
+            <TextView
+                android:id="@+id/tvCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chi phí: ..."
+                android:textColor="#D32F2F"
+                android:textStyle="bold" />
         </LinearLayout>
-    </LinearLayout>
+
+        <!-- Icon thùng rác bên phải -->
+        <ImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_delete"
+            android:contentDescription="Xóa"
+            app:tint="#F44336" />
+
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

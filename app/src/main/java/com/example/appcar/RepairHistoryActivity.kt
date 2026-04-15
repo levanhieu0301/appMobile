@@ -17,12 +17,11 @@ class RepairHistoryActivity : AppCompatActivity() {
     private lateinit var dao: RepairHistoryDAO
     private lateinit var adapter: RepairHistoryAdapter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_repair_history)
-        val btnBack = findViewById<ImageButton>(R.id.btnBack)
         
+        val btnBack = findViewById<ImageButton>(R.id.btnBack)
         btnBack.setOnClickListener {
             finish() 
         }

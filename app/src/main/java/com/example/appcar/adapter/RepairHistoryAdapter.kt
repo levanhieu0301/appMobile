@@ -3,7 +3,7 @@ package com.example.appcar.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appcar.R
@@ -43,6 +43,6 @@ class RepairHistoryAdapter(
         val tvRepairDate: TextView = itemView.findViewById(R.id.tvRepairDate)
         val tvDescription: TextView = itemView.findViewById(R.id.tvDescription)
         val tvCost: TextView = itemView.findViewById(R.id.tvCost)
-        val btnDelete: Button = itemView.findViewById(R.id.btnDelete)
+        val btnDelete: ImageButton = itemView.findViewById(R.id.btnDelete)
     }
 }
