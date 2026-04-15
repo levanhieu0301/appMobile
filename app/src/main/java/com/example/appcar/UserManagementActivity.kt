@@ -57,50 +57,44 @@ class UserManagementActivity : AppCompatActivity() {
     }
 
     private fun showEditUserDialog(user: User) {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Chỉnh sửa khách hàng")
+        val builder = com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+        builder.setTitle("Chỉnh sửa thông tin")
 
-        val layout = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(50, 40, 50, 10)
-        }
+        val view = layoutInflater.inflate(R.layout.dialog_edit, null)
+        builder.setView(view)
 
-        val edtFullName = EditText(this).apply {
-            hint = "Họ và tên khách hàng"
-            setText(user.fullName)
-        }
+        val edtFullName = view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtDialogFullName)
+        val edtUsername = view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtDialogUsername)
+        val edtRole = view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtDialogRole)
 
-        val edtUsername = EditText(this).apply {
-            hint = "Tên đăng nhập/Email"
-            setText(user.username)
-        }
+        edtFullName.setText(user.fullName)
+        edtUsername.setText(user.username)
+        edtRole.setText(user.role)
 
-        val edtRole = EditText(this).apply {
-            hint = "Vai trò (user/admin)"
-            setText(user.role)
-        }
-
-        layout.addView(edtFullName)
-        layout.addView(edtUsername)
-        layout.addView(edtRole)
-        builder.setView(layout)
-
-        builder.setPositiveButton("Cập nhật") { _, _ ->
+        builder.setPositiveButton("Cập nhật") { dialog, _ ->
             val newFullName = edtFullName.text.toString().trim()
             val newUsername = edtUsername.text.toString().trim()
             val newRole = edtRole.text.toString().trim()
 
-            if (newFullName.isNotEmpty() && newUsername.isNotEmpty() && newRole.isNotEmpty()) {
-                val rows = userDao.updateUser(user.id, newFullName, newUsername, newRole)
-                if (rows > 0) {
+            if (newFullName.isNotEmpty() && newUsername.isNotEmpty()) {
+                val result = userDao.updateUser(user.id, newFullName, newUsername, newRole)
+
+                if (result > 0) {
                     loadData()
-                    Toast.makeText(this, "Đã cập nhật thông tin", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                } else {
+                    Toast.makeText(this, "Lỗi cập nhật!", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(this, "Không được để trống!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Vui lòng nhập đủ Tên và Email!", Toast.LENGTH_SHORT).show()
             }
         }
-        builder.setNegativeButton("Hủy", null)
+
+        builder.setNegativeButton("Hủy") { dialog, _ ->
+            dialog.dismiss()
+        }
+
         builder.show()
     }
 
