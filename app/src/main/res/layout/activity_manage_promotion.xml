@@ -4,35 +4,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F5F5F5">
+    android:background="#F3F0FF">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:text="@string/manage_voucher"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"
-        android:background="#2196F3"
-        app:navigationIcon="?attr/homeAsUpIndicator"
-        android:gravity="center"
-        app:navigationContentDescription="Quay lại" />
+        android:layout_height="56dp"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="12dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_menu_revert"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="12dp"
+            app:tint="@color/black"
+            android:contentDescription="Quay lại" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="QUẢN LÝ MÃ GIẢM GIÁ"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPromotions"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="8dp" />
+        android:padding="12dp"
+        android:clipToPadding="false" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAddPromotion"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:text="+ THÊM MÃ MỚI"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#4CAF50"
-        android:layout_margin="8dp" />
+        android:layout_margin="8dp"
+        android:text="Thêm mã mới"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:backgroundTint="#7C3AED"
+        app:icon="@android:drawable/ic_input_add"
+        app:iconGravity="textStart"
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>
