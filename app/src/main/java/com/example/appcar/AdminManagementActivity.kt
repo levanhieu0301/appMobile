@@ -55,7 +55,10 @@ class AdminManagementActivity : AppCompatActivity() {
                 val id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"))
                 val name = cursor.getString(cursor.getColumnIndexOrThrow("username"))
                 val role = cursor.getString(cursor.getColumnIndexOrThrow("role"))
-                adminList.add(User(id, name, role))
+                val fullName = cursor.getString(cursor.getColumnIndexOrThrow("full_name"))
+
+                adminList.add(User(id, name, fullName, role))
+
             } while (cursor.moveToNext())
         }
         cursor.close()
@@ -126,7 +129,6 @@ class AdminManagementActivity : AppCompatActivity() {
         builder.show()
     }
 
-    // --- CHỨC NĂNG SỬA (Email + Password) ---
     private fun showEditDialog(user: User) {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Cập nhật thông tin Admin")
@@ -150,7 +152,6 @@ class AdminManagementActivity : AppCompatActivity() {
             val newPass = edtPass.text.toString().trim()
 
             if (newEmail.isNotEmpty()) {
-                // Nếu người dùng có nhập pass mới thì mã hóa, nếu không thì giữ nguyên pass cũ (cần hàm update tương ứng trong DAO)
                 if (newPass.isNotEmpty()) {
                     val hashedPass = HashUtil.hash(newPass)
                     userDAO.updateAdminWithPass(user.id, newEmail, hashedPass, "admin")

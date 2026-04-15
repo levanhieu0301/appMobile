@@ -11,6 +11,7 @@ import com.example.appcar.R
 data class User(
     val id: Int,
     val username: String,
+    val fullName: String,
     val role: String
 )
 

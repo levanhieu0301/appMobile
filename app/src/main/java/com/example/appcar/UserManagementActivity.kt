@@ -1,7 +1,9 @@
 package com.example.appcar
 
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -27,7 +29,7 @@ class UserManagementActivity : AppCompatActivity() {
 
         adapter = AdminAdapter(customerList,
             onDeleteClick = { user -> confirmDelete(user) },
-            onEditClick = { /* Có thể khóa chức năng sửa thông tin khách hàng */ }
+            onEditClick = { user -> showEditUserDialog(user) }
         )
 
         rvUsers.layoutManager = LinearLayoutManager(this)
@@ -43,14 +45,63 @@ class UserManagementActivity : AppCompatActivity() {
         if (cursor.moveToFirst()) {
             do {
                 val id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"))
-                val name = cursor.getString(cursor.getColumnIndexOrThrow("username"))
+                val username = cursor.getString(cursor.getColumnIndexOrThrow("username"))
+                val fullName = cursor.getString(cursor.getColumnIndexOrThrow("full_name")) // Lấy thêm cột này
                 val role = cursor.getString(cursor.getColumnIndexOrThrow("role"))
-                // Nếu bạn có thêm cột full_name trong DB, hãy lấy thêm tại đây
-                customerList.add(User(id, name, role))
+
+                customerList.add(User(id, username, fullName, role))
             } while (cursor.moveToNext())
         }
         cursor.close()
         adapter.notifyDataSetChanged()
+    }
+
+    private fun showEditUserDialog(user: User) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Chỉnh sửa khách hàng")
+
+        val layout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(50, 40, 50, 10)
+        }
+
+        val edtFullName = EditText(this).apply {
+            hint = "Họ và tên khách hàng"
+            setText(user.fullName)
+        }
+
+        val edtUsername = EditText(this).apply {
+            hint = "Tên đăng nhập/Email"
+            setText(user.username)
+        }
+
+        val edtRole = EditText(this).apply {
+            hint = "Vai trò (user/admin)"
+            setText(user.role)
+        }
+
+        layout.addView(edtFullName)
+        layout.addView(edtUsername)
+        layout.addView(edtRole)
+        builder.setView(layout)
+
+        builder.setPositiveButton("Cập nhật") { _, _ ->
+            val newFullName = edtFullName.text.toString().trim()
+            val newUsername = edtUsername.text.toString().trim()
+            val newRole = edtRole.text.toString().trim()
+
+            if (newFullName.isNotEmpty() && newUsername.isNotEmpty() && newRole.isNotEmpty()) {
+                val rows = userDao.updateUser(user.id, newFullName, newUsername, newRole)
+                if (rows > 0) {
+                    loadData()
+                    Toast.makeText(this, "Đã cập nhật thông tin", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this, "Không được để trống!", Toast.LENGTH_SHORT).show()
+            }
+        }
+        builder.setNegativeButton("Hủy", null)
+        builder.show()
     }
 
     private fun confirmDelete(user: User) {

@@ -104,4 +104,13 @@ class UserDAO(context: Context) {
         cursor.close()
         return fullName
     }
+
+    fun updateUser(id: Int, fullName: String, username: String, role: String): Int {
+        val values = ContentValues().apply {
+            put("full_name", fullName)
+            put("username", username)
+            put("role", role)
+        }
+        return db.update("users", values, "id = ?", arrayOf(id.toString()))
+    }
 }

@@ -13,7 +13,7 @@
         android:theme="@style/Theme.AppCar">
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".UserManagementActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
