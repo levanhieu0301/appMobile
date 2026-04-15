@@ -1,9 +1,7 @@
 package com.example.appcar
 
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -60,7 +58,7 @@ class UserManagementActivity : AppCompatActivity() {
         val builder = com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
         builder.setTitle("Chỉnh sửa thông tin")
 
-        val view = layoutInflater.inflate(R.layout.dialog_edit, null)
+        val view = layoutInflater.inflate(R.layout.dialog_edit_user, null)
         builder.setView(view)
 
         val edtFullName = view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtDialogFullName)

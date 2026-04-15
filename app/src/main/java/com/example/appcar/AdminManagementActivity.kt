@@ -130,24 +130,18 @@ class AdminManagementActivity : AppCompatActivity() {
     }
 
     private fun showEditDialog(user: User) {
-        val builder = AlertDialog.Builder(this)
+        val builder = com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
         builder.setTitle("Cập nhật thông tin Admin")
 
-        val layout = LinearLayout(this)
-        layout.orientation = LinearLayout.VERTICAL
-        layout.setPadding(50, 40, 50, 10)
+        val view = layoutInflater.inflate(R.layout.dialog_edit_admin, null)
+        builder.setView(view)
 
-        val edtEmail = EditText(this).apply { setText(user.username) }
-        val edtPass = EditText(this).apply {
-            hint = "Mật khẩu mới (Để trống nếu không đổi)"
-            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-        }
+        val edtEmail = view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtAdminEmail)
+        val edtPass = view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtAdminPass)
 
-        layout.addView(edtEmail)
-        layout.addView(edtPass)
-        builder.setView(layout)
+        edtEmail.setText(user.username)
 
-        builder.setPositiveButton("Cập nhật") { _, _ ->
+        builder.setPositiveButton("Cập nhật") { dialog, _ ->
             val newEmail = edtEmail.text.toString().trim()
             val newPass = edtPass.text.toString().trim()
 
@@ -160,9 +154,11 @@ class AdminManagementActivity : AppCompatActivity() {
                 }
                 loadData()
                 Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
             }
         }
-        builder.setNegativeButton("Hủy", null)
+
+        builder.setNegativeButton("Hủy") { dialog, _ -> dialog.dismiss() }
         builder.show()
     }
 
