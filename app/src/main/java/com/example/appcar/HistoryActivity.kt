@@ -1,6 +1,10 @@
 package com.example.appcar
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +19,7 @@ class HistoryActivity : AppCompatActivity() {
     private lateinit var appointmentDAO: AppointmentDAO
     private lateinit var adapter: AppointmentAdapter
     private var appointmentList = mutableListOf<Appointment>()
+    private var fullList = mutableListOf<Appointment>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +31,7 @@ class HistoryActivity : AppCompatActivity() {
 
         setupRecyclerView()
         setupClickListeners()
+        setupSearch()
         loadData()
     }
 
@@ -36,43 +42,56 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun setupClickListeners() {
-        // Quay lại
-        binding.btnBack.setOnClickListener {
-            finish()
-        }
+        binding.btnBack.setOnClickListener { finish() }
 
-        // Lọc
         binding.btnAll.setOnClickListener {
+            updateTabUI(binding.btnAll)
             loadData()
-            Toast.makeText(this, "Hiển thị tất cả", Toast.LENGTH_SHORT).show()
         }
 
-        // Lọc: Hoàn thành (Khớp ID btnDone)
         binding.btnDone.setOnClickListener {
-            filterData("Hoàn thành")
+            updateTabUI(binding.btnDone)
+            filterDataByStatus("Hoàn thành")
         }
 
-        // Lọc: Đã hủy (Khớp ID btnCancel)
         binding.btnCancel.setOnClickListener {
-            filterData("Đã hủy")
+            updateTabUI(binding.btnCancel)
+            filterDataByStatus("Đã hủy")
         }
+    }
 
+    private fun updateTabUI(selectedTab: TextView) {
+        // Reset tất cả tab về trạng thái chưa chọn
+        val tabs = listOf(binding.btnAll, binding.btnDone, binding.btnCancel)
+        for (tab in tabs) {
+            tab.setBackgroundColor(Color.TRANSPARENT)
+            tab.setTextColor(Color.parseColor("#546E7A"))
+        }
+        // Highlight tab được chọn
+        selectedTab.setBackgroundColor(Color.parseColor("#3F51B5"))
+        selectedTab.setTextColor(Color.WHITE)
+    }
+
+    private fun setupSearch() {
+        binding.edtSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val query = s.toString().lowercase()
+                val filteredList = fullList.filter { 
+                    it.serviceName.lowercase().contains(query) || it.location.lowercase().contains(query)
+                }
+                appointmentList.clear()
+                appointmentList.addAll(filteredList)
+                adapter.notifyDataSetChanged()
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
 
     private fun loadData() {
         appointmentList.clear()
+        fullList.clear()
         val cursor = appointmentDAO.getAllAppointments()
-        readCursor(cursor)
-    }
-
-    private fun filterData(status: String) {
-        appointmentList.clear()
-        val cursor = appointmentDAO.getAppointmentsByStatus(status)
-        readCursor(cursor)
-        Toast.makeText(this, "Đã lọc: $status", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun readCursor(cursor: android.database.Cursor) {
         if (cursor.moveToFirst()) {
             do {
                 val id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
@@ -82,11 +101,19 @@ class HistoryActivity : AppCompatActivity() {
                 val status = cursor.getString(cursor.getColumnIndexOrThrow("status"))
                 val price = cursor.getLong(cursor.getColumnIndexOrThrow("price"))
 
-                // Truyền vào đúng thứ tự của data class Appointment
-                appointmentList.add(Appointment(id, name, date, loc, status, price))
+                val item = Appointment(id, name, date, loc, status, price)
+                appointmentList.add(item)
+                fullList.add(item)
             } while (cursor.moveToNext())
         }
         cursor.close()
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun filterDataByStatus(status: String) {
+        val filtered = fullList.filter { it.status == status }
+        appointmentList.clear()
+        appointmentList.addAll(filtered)
         adapter.notifyDataSetChanged()
     }
 }
