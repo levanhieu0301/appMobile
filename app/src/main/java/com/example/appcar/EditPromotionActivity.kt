@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.appcar.database.PromotionDAO
@@ -17,6 +18,7 @@ class EditPromotionActivity : AppCompatActivity() {
     private lateinit var edtLimit: EditText
     private lateinit var btnUpdate: Button
     private lateinit var btnCancel: Button
+    private lateinit var btnBack: ImageButton
     private lateinit var dao: PromotionDAO
 
     private var promotionId: Int = -1
@@ -36,6 +38,7 @@ class EditPromotionActivity : AppCompatActivity() {
         edtLimit = findViewById(R.id.edtLimit)
         btnUpdate = findViewById(R.id.btnUpdate)
         btnCancel = findViewById(R.id.btnCancel)
+        btnBack = findViewById(R.id.btnBack)
         dao = PromotionDAO(this)
 
         promotionId = intent.getIntExtra("promotion_id", -1)
@@ -58,6 +61,10 @@ class EditPromotionActivity : AppCompatActivity() {
         }
 
         btnCancel.setOnClickListener {
+            finish()
+        }
+
+        btnBack.setOnClickListener {
             finish()
         }
     }

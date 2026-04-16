@@ -1,6 +1,5 @@
 package com.example.appcar
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
@@ -14,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appcar.adapter.AdminAdapter
 import com.example.appcar.adapter.User
 import com.example.appcar.database.UserDAO
-import com.example.appcar.utils.HashUtil // Nhớ import HashUtil của bạn
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.appcar.utils.HashUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class AdminManagementActivity : AppCompatActivity() {
@@ -33,7 +31,6 @@ class AdminManagementActivity : AppCompatActivity() {
         userDAO = UserDAO(this)
         val rvAdmin = findViewById<RecyclerView>(R.id.rvAdmin)
         val fabAdd = findViewById<FloatingActionButton>(R.id.fabAddAdmin)
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
         adapter = AdminAdapter(
             adminList,
@@ -58,7 +55,10 @@ class AdminManagementActivity : AppCompatActivity() {
                 val id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"))
                 val name = cursor.getString(cursor.getColumnIndexOrThrow("username"))
                 val role = cursor.getString(cursor.getColumnIndexOrThrow("role"))
-                adminList.add(User(id, name, role))
+                val fullName = cursor.getString(cursor.getColumnIndexOrThrow("full_name"))
+
+                adminList.add(User(id, name, fullName, role))
+
             } while (cursor.moveToNext())
         }
         cursor.close()
@@ -129,31 +129,23 @@ class AdminManagementActivity : AppCompatActivity() {
         builder.show()
     }
 
-    // --- CHỨC NĂNG SỬA (Email + Password) ---
     private fun showEditDialog(user: User) {
-        val builder = AlertDialog.Builder(this)
+        val builder = com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
         builder.setTitle("Cập nhật thông tin Admin")
 
-        val layout = LinearLayout(this)
-        layout.orientation = LinearLayout.VERTICAL
-        layout.setPadding(50, 40, 50, 10)
+        val view = layoutInflater.inflate(R.layout.dialog_edit_admin, null)
+        builder.setView(view)
 
-        val edtEmail = EditText(this).apply { setText(user.username) }
-        val edtPass = EditText(this).apply {
-            hint = "Mật khẩu mới (Để trống nếu không đổi)"
-            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-        }
+        val edtEmail = view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtAdminEmail)
+        val edtPass = view.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.edtAdminPass)
 
-        layout.addView(edtEmail)
-        layout.addView(edtPass)
-        builder.setView(layout)
+        edtEmail.setText(user.username)
 
-        builder.setPositiveButton("Cập nhật") { _, _ ->
+        builder.setPositiveButton("Cập nhật") { dialog, _ ->
             val newEmail = edtEmail.text.toString().trim()
             val newPass = edtPass.text.toString().trim()
 
             if (newEmail.isNotEmpty()) {
-                // Nếu người dùng có nhập pass mới thì mã hóa, nếu không thì giữ nguyên pass cũ (cần hàm update tương ứng trong DAO)
                 if (newPass.isNotEmpty()) {
                     val hashedPass = HashUtil.hash(newPass)
                     userDAO.updateAdminWithPass(user.id, newEmail, hashedPass, "admin")
@@ -162,9 +154,11 @@ class AdminManagementActivity : AppCompatActivity() {
                 }
                 loadData()
                 Toast.makeText(this, "Cập nhật thành công", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
             }
         }
-        builder.setNegativeButton("Hủy", null)
+
+        builder.setNegativeButton("Hủy") { dialog, _ -> dialog.dismiss() }
         builder.show()
     }
 

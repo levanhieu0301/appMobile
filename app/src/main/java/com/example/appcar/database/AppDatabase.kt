@@ -143,7 +143,6 @@ class AppDatabase(context: Context) : SQLiteOpenHelper(
             db.execSQL("DROP TABLE IF EXISTS services")
             db.execSQL("DROP TABLE IF EXISTS repair_history")
             db.execSQL("DROP TABLE IF EXISTS appointments")
-
             onCreate(db)
         }
     }

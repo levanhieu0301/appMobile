@@ -4,95 +4,138 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F5F5F5"
-    android:padding="20dp">
+    android:background="#F3F0FF">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#2196F3"
-        android:title="Tạo mã mới"
-        android:titleTextColor="#FFFFFF"
-        app:navigationIcon="?attr/homeAsUpIndicator"
-        app:navigationContentDescription="Quay lại" />
+        android:layout_height="56dp"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="12dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_menu_revert"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="12dp"
+            app:tint="@color/black"
+            android:contentDescription="Quay lại" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="TẠO MÃ GIẢM GIÁ"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black" />
+
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="24dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TẠO MÃ GIẢM GIÁ"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="#2196F3"
-                android:layout_gravity="center" />
-
-            <EditText
-                android:id="@+id/edtCode"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Mã code"
-                android:layout_marginTop="20dp"
-                android:padding="12dp"
-                android:background="@android:drawable/editbox_background" />
+                app:boxStrokeColor="#7C3AED"
+                app:hintTextColor="#7C3AED">
 
-            <EditText
-                android:id="@+id/edtPercent"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapCharacters"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:hint="Phần trăm giảm (0-100)"
-                android:layout_marginTop="12dp"
-                android:inputType="number"
-                android:padding="12dp"
-                android:background="@android:drawable/editbox_background" />
+                app:boxStrokeColor="#7C3AED"
+                app:hintTextColor="#7C3AED">
 
-            <EditText
-                android:id="@+id/edtExpiry"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPercent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Ngày hết hạn (yyyy-mm-dd)"
-                android:layout_marginTop="12dp"
-                android:inputType="date"
-                android:padding="12dp"
-                android:background="@android:drawable/editbox_background" />
+                android:layout_marginTop="16dp"
+                android:hint="Ngày hết hạn"
+                app:boxStrokeColor="#7C3AED"
+                app:hintTextColor="#7C3AED"
+                app:startIconDrawable="@android:drawable/ic_menu_my_calendar">
 
-            <EditText
-                android:id="@+id/edtLimit"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtExpiry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:hint="Giới hạn số lượt sử dụng"
-                android:layout_marginTop="12dp"
-                android:inputType="number"
-                android:padding="12dp"
-                android:background="@android:drawable/editbox_background" />
+                app:boxStrokeColor="#7C3AED"
+                app:hintTextColor="#7C3AED">
 
-            <Button
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtLimit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSave"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="32dp"
                 android:text="LƯU MÃ"
-                android:layout_marginTop="30dp"
-                android:backgroundTint="#4CAF50"
-                android:textColor="#FFFFFF" />
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:backgroundTint="#7C3AED"
+                app:cornerRadius="12dp" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCancel"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="HỦY"
+                android:layout_height="56dp"
                 android:layout_marginTop="12dp"
-                android:backgroundTint="#9E9E9E"
-                android:textColor="#FFFFFF" />
+                android:text="HỦY"
+                android:textSize="16sp"
+                android:textColor="#EF4444"
+                app:strokeColor="#EF4444"
+                app:cornerRadius="12dp" />
 
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>
