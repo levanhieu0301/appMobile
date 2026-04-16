@@ -4,9 +4,9 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.example.appcar.database.Promotion
 import com.example.appcar.database.PromotionDAO
 import java.util.Calendar
@@ -19,6 +19,7 @@ class CreatePromotionActivity : AppCompatActivity() {
     private lateinit var edtLimit: EditText
     private lateinit var btnSave: Button
     private lateinit var btnCancel: Button
+    private lateinit var btnBack: ImageButton
     private lateinit var dao: PromotionDAO
 
     private var selectedYear = 0
@@ -29,16 +30,13 @@ class CreatePromotionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_promotion)
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         edtCode = findViewById(R.id.edtCode)
         edtPercent = findViewById(R.id.edtPercent)
         edtExpiry = findViewById(R.id.edtExpiry)
         edtLimit = findViewById(R.id.edtLimit)
         btnSave = findViewById(R.id.btnSave)
         btnCancel = findViewById(R.id.btnCancel)
+        btnBack = findViewById(R.id.btnBack)
         dao = PromotionDAO(this)
 
         // Khởi tạo ngày hiện tại
@@ -108,6 +106,10 @@ class CreatePromotionActivity : AppCompatActivity() {
         btnCancel.setOnClickListener {
             finish()
         }
+
+        btnBack.setOnClickListener {
+            finish()
+        }
     }
     private fun showDatePicker() {
         val datePickerDialog = DatePickerDialog(
@@ -130,11 +132,4 @@ class CreatePromotionActivity : AppCompatActivity() {
                 cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
                 cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH)
     }
-
-    // BẮT BUỘC: xử lý khi nhấn nút back
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressedDispatcher.onBackPressed()  // hoặc finish()
-        return true
-    }
-
 }

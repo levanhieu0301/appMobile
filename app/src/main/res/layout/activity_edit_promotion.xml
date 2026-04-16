@@ -1,80 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
-    android:padding="20dp">
+    android:orientation="vertical"
+    android:background="#F3F0FF">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="56dp"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="12dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@android:drawable/ic_menu_revert"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="12dp"
+            app:tint="@color/black"
+            android:contentDescription="Quay lại" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="SỬA MÃ GIẢM GIÁ"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="#2196F3"
-            android:layout_gravity="center" />
+            android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/edtCode"
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Mã code"
-            android:layout_marginTop="20dp"
-            android:padding="12dp"
-            android:background="@android:drawable/editbox_background" />
+            android:orientation="vertical"
+            android:padding="24dp">
 
-        <EditText
-            android:id="@+id/edtPercent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Phần trăm giảm (0-100)"
-            android:layout_marginTop="12dp"
-            android:inputType="number"
-            android:padding="12dp"
-            android:background="@android:drawable/editbox_background" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mã code"
+                app:boxStrokeColor="#7C3AED"
+                app:hintTextColor="#7C3AED">
 
-        <EditText
-            android:id="@+id/edtExpiry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Ngày hết hạn (chọn từ lịch)"
-            android:layout_marginTop="12dp"
-            android:padding="12dp"
-            android:background="@android:drawable/editbox_background"
-            android:focusable="false"
-            android:clickable="true" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapCharacters"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/edtLimit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Giới hạn số lượt sử dụng"
-            android:layout_marginTop="12dp"
-            android:inputType="number"
-            android:padding="12dp"
-            android:background="@android:drawable/editbox_background" />
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Phần trăm giảm (0-100)"
+                app:boxStrokeColor="#7C3AED"
+                app:hintTextColor="#7C3AED">
 
-        <Button
-            android:id="@+id/btnUpdate"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="CẬP NHẬT"
-            android:layout_marginTop="30dp"
-            android:backgroundTint="#4CAF50"
-            android:textColor="#FFFFFF" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPercent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/btnCancel"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="HỦY"
-            android:layout_marginTop="12dp"
-            android:backgroundTint="#9E9E9E"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
-</ScrollView>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Ngày hết hạn"
+                app:boxStrokeColor="#7C3AED"
+                app:hintTextColor="#7C3AED"
+                app:startIconDrawable="@android:drawable/ic_menu_my_calendar">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtExpiry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Giới hạn số lượt sử dụng"
+                app:boxStrokeColor="#7C3AED"
+                app:hintTextColor="#7C3AED">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtLimit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="32dp"
+                android:text="CẬP NHẬT"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:backgroundTint="#7C3AED"
+                app:cornerRadius="12dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCancel"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="12dp"
+                android:text="HỦY"
+                android:textSize="16sp"
+                android:textColor="#EF4444"
+                app:strokeColor="#EF4444"
+                app:cornerRadius="12dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
