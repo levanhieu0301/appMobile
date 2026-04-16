@@ -2,4 +2,16 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Home palette: white + blue + orange -->
+    <color name="app_bg">#F5F7FA</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#64748B</color>
+    <color name="divider">#E2E8F0</color>
+
+    <color name="primary_blue">#1677FF</color>
+    <color name="primary_blue_dark">#0B5ED7</color>
+    <color name="accent_orange">#FF7A1A</color>
+    <color name="success_green">#16A34A</color>
 </resources>

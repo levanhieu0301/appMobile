@@ -43,6 +43,15 @@
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".HomeActivity"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+
         <activity
             android:name=".CreatePromotionActivity"
             android:exported="false" />
@@ -70,14 +79,21 @@
         <activity
             android:name=".HistoryActivity"
             android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".HistoryActivity"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+        <activity
+            android:name=".client.HistoryClientActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".client.BookingClientActivity"
+            android:exported="false" />
+        <activity
+            android:name=".client.ProfileClientActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".client.ServiceListActivity"
+            android:exported="false" />
+
+
 
     </application>
 
