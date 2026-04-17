@@ -1,5 +1,6 @@
 package com.example.appcar
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
@@ -12,6 +13,7 @@ class AdminActivity : AppCompatActivity() {
 
     lateinit var drawerLayout: DrawerLayout
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin)
@@ -54,6 +56,9 @@ class AdminActivity : AppCompatActivity() {
         // Thêm sự kiện cho Lịch sử sửa xe
         findViewById<TextView>(R.id.repair_history).setOnClickListener {
             startActivity(Intent(this, RepairHistoryActivity::class.java))
+        }
+        findViewById<TextView>(R.id.service).setOnClickListener {
+            startActivity(Intent(this, ServiceManagementActivity::class.java))
         }
 
         findViewById<TextView>(R.id.menuLogout).setOnClickListener {
