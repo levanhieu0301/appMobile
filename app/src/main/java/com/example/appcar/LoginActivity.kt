@@ -93,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // 🔹 Ánh xạ view
+        //  Ánh xạ view
         val edtEmail = findViewById<EditText>(R.id.edtUser)
         val edtPass = findViewById<EditText>(R.id.edtPass)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
@@ -102,21 +102,22 @@ class LoginActivity : AppCompatActivity() {
 
         val userDAO = UserDAO(this)
 
-        // 🔹 Quên mật khẩu
+        //  Quên mật khẩu
         txtForgotPass.setOnClickListener {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
 
-        // 🔹 Chuyển sang đăng ký
+        // Chuyển sang đăng ký
         txtRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
-        // 🔹 Xử lý đăng nhập
+        //  Xử lý đăng nhập
         btnLogin.setOnClickListener {
 
             val email = edtEmail.text.toString().trim()
             val passInput = edtPass.text.toString().trim()
+
 
             // 1. Kiểm tra rỗng
             if (email.isEmpty() || passInput.isEmpty()) {
@@ -145,19 +146,18 @@ class LoginActivity : AppCompatActivity() {
 
                     Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show()
 
-                    // 6. Kiểm tra quyền (ROLE)
+                    //  THÊM EMAIL Ở ĐÂY
                     if (role.lowercase() == "admin") {
                         val intent = Intent(this, AdminActivity::class.java)
-                        intent.putExtra("EMAIL", email)
+                        intent.putExtra("EMAIL", email) // thêm dòng này
                         startActivity(intent)
                     } else {
                         val intent = Intent(this, HomeActivity::class.java)
-                        intent.putExtra("EMAIL", email)
+                        intent.putExtra("EMAIL", email) //thêm dòng này
                         startActivity(intent)
                     }
 
                     finish()
-
                 } else {
                     Toast.makeText(this, "Mật khẩu không chính xác", Toast.LENGTH_SHORT).show()
                 }

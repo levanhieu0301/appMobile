@@ -52,6 +52,22 @@ class UserDAO(context: Context) {
         cursor.close()
         return exists
     }
+    fun getUserInfoByEmail(email: String): Pair<String, String>? {
+        val cursor = db.rawQuery(
+            "SELECT full_name, address FROM users WHERE email = ?",
+            arrayOf(email)
+        )
+
+        return if (cursor.moveToFirst()) {
+            val name = cursor.getString(0)
+            val address = cursor.getString(1)
+            cursor.close()
+            Pair(name, address)
+        } else {
+            cursor.close()
+            null
+        }
+    }
 
     //LOGIN (email + password)
     fun login(email: String, password: String): Int? {

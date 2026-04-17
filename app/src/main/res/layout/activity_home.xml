@@ -115,7 +115,6 @@
                         android:id="@+id/tvUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Xin chào, Hiếu"
                         android:textColor="@color/text_primary"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -125,7 +124,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Vị trí hiện tại: Q.1, TP.HCM"
                         android:textColor="@color/text_secondary"
                         android:textSize="13sp"
                         android:maxLines="1"
@@ -165,7 +163,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerCrop"
-                        android:src="@android:drawable/ic_menu_gallery"
+                        android:src="@drawable/banner_sale"
                         android:contentDescription="@null" />
 
                     <View
@@ -184,7 +182,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Khuyến mãi hôm nay"
-                            android:textColor="@color/text_primary"
+                            android:textColor="@color/white"
                             android:textSize="16sp"
                             android:textStyle="bold" />
 
@@ -194,7 +192,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:text="Giảm đến 30% cho dịch vụ bảo dưỡng"
-                            android:textColor="@color/text_secondary"
+                            android:textColor="@color/white"
                             android:textSize="13sp" />
 
                         <Button
