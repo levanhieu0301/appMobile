@@ -3,7 +3,9 @@ package com.example.appcar.database
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
-import com.example.appcar.database.RepairHistory
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class RepairHistoryDAO(context: Context) {
     private val dbHelper = AppDatabase(context)
@@ -43,5 +45,19 @@ class RepairHistoryDAO(context: Context) {
     // Xóa bản ghi
     fun delete(id: Long): Int {
         return db.delete("repair_history", "id = ?", arrayOf(id.toString()))
+    }
+
+    fun getTodayRevenue(): Double {
+        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val cursor = db.rawQuery(
+            "SELECT SUM(cost) FROM repair_history WHERE repair_date LIKE ?",
+            arrayOf("$today%")
+        )
+        var total = 0.0
+        if (cursor.moveToFirst()) {
+            total = cursor.getDouble(0)
+        }
+        cursor.close()
+        return total
     }
 }
