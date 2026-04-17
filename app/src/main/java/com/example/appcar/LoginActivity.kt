@@ -143,7 +143,11 @@ class LoginActivity : AppCompatActivity() {
 
                 // 5. So sánh password
                 if (hashedInput == dbPasswordHash) {
-
+                    // Lấy userId từ email
+                    val userId = userDAO.getUserIdByEmail(email)
+                    if (userId != null) {
+                        getSharedPreferences("MyPrefs", MODE_PRIVATE).edit().putInt("userId", userId).apply()
+                    }
                     Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show()
 
                     //  THÊM EMAIL Ở ĐÂY
