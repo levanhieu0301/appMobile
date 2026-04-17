@@ -4,7 +4,7 @@
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="full_name">Full Name</string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
+    <string name="password">Mật Khẩu</string>
     <string name="re_password">Re-type Password</string>
     <string name="login">LOGIN</string>
     <string name="already_account">Already have an account?</string>
@@ -26,7 +26,8 @@
     <string name="back">Back</string>
     <string name="serviceManagement">Quản lý Dịch vụ</string>
     <string name="repair_history">Lịch sử sửa xe</string>
-
+    <string name="phoneNumber">Số điện thoại</string>
+    <string name="address">Địa chỉ</string>
 
 
     // End Trang Admin

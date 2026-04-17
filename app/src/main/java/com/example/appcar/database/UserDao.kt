@@ -145,16 +145,27 @@ class UserDAO(context: Context) {
 
     // End data mới
 
-    fun insert(fullName: String, username: String, password: String, role: String): Long {
+//    fun insert(fullName: String, username: String, password: String, role: String): Long {
+//        val values = ContentValues().apply {
+//            put("full_name", fullName)
+//            put("username", username)
+//            put("password", password)
+//            put("role", role)
+//        }
+//        return db.insert("users", null, values)
+//    }
+
+    fun insert(fullName: String, email: String, pass: String, phone: String, address: String, role: String): Long {
         val values = ContentValues().apply {
             put("full_name", fullName)
-            put("username", username)
-            put("password", password)
+            put("username", email)
+            put("password", pass)
+            put("phone", phone)
+            put("address", address)
             put("role", role)
         }
         return db.insert("users", null, values)
     }
-
 
     fun updateAdmin(id: Int, newUsername: String, newRole: String): Int {
         val values = ContentValues().apply {
