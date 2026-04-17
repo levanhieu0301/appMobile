@@ -20,9 +20,11 @@ class DashboardActivity : AppCompatActivity() {
         val tvStatUser = findViewById<TextView>(R.id.tvStatUser)
         val tvStatRevenue = findViewById<TextView>(R.id.tvStatRevenue)
         val btnLogoutAdmin = findViewById<ImageButton>(R.id.btnLogoutAdmin)
+        val btnBack = findViewById<ImageButton>(R.id.btnBack)
         
         val userDAO = UserDAO(this)
-
+        // Quay lại login
+        btnBack.setOnClickListener { finish() }
         // 2. Hiển thị thông tin Admin
         val email = intent.getStringExtra("EMAIL")
         if (email != null) {
@@ -43,8 +45,6 @@ class DashboardActivity : AppCompatActivity() {
         // 4. Thiết lập sự kiện cho các Card Menu chính
         setupCardMenu()
 
-        // 5. Thiết lập sự kiện cho Thanh điều hướng dưới (Bottom Nav)
-        setupBottomNavigation()
 
         // 6. Xử lý Đăng xuất
         btnLogoutAdmin.setOnClickListener {
@@ -78,21 +78,4 @@ class DashboardActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupBottomNavigation() {
-        findViewById<LinearLayout>(R.id.navPromo).setOnClickListener {
-            startActivity(Intent(this, ManagePromotionActivity::class.java))
-        }
-
-        findViewById<LinearLayout>(R.id.navRepair).setOnClickListener {
-            startActivity(Intent(this, RepairHistoryActivity::class.java))
-        }
-
-        findViewById<LinearLayout>(R.id.navAdmin).setOnClickListener {
-            startActivity(Intent(this, AdminManagementActivity::class.java))
-        }
-
-        findViewById<LinearLayout>(R.id.navHistory).setOnClickListener {
-            startActivity(Intent(this, HistoryActivity::class.java))
-        }
-    }
 }

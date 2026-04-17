@@ -20,38 +20,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        <activity-->
-<!--            android:name=".LoginActivity"-->
-<!--            android:exported="false"/>-->
-
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
-
         <activity
             android:name=".ForgotPasswordActivity"
             android:exported="false" />
-
         <activity
             android:name=".DashboardActivity"
             android:exported="false" />
-
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
-<!--        <activity-->
-<!--            android:name=".HomeActivity"-->
-<!--            android:exported="true">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
-
         <activity
             android:name=".CreatePromotionActivity"
             android:exported="false" />
@@ -64,15 +47,22 @@
         <activity
             android:name=".AdminActivity"
             android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".AdminActivity"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
         <activity
             android:name=".AdminManagementActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
-<!--        <activity-->
-<!--            android:name=".ServiceManagementActivity"-->
-<!--            android:exported="false"-->
-<!--            android:windowSoftInputMode="adjustPan" />-->
-
+        <activity
+            android:name=".ServiceManagementActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".RepairHistoryActivity"
             android:exported="false" />
@@ -88,13 +78,9 @@
         <activity
             android:name=".client.ProfileClientActivity"
             android:exported="false" />
-
         <activity
             android:name=".client.ServiceListActivity"
             android:exported="false" />
-
-
-
     </application>
 
 </manifest>

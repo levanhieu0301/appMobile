@@ -99,7 +99,7 @@ class UserDAO(context: Context) {
     // Admin list
     fun getAllAdmins(): Cursor {
         return db.rawQuery(
-            "SELECT id as _id, username, role FROM users WHERE role = 'admin'",
+            "SELECT id as _id, username, full_name, role FROM users WHERE role = 'admin'",
             null
         )
     }
@@ -213,7 +213,7 @@ fun getUserCredentials(email: String): Pair<String, String>? {
     }
     fun getFullNameByEmail(email: String): String? {
         val cursor = db.rawQuery(
-            "SELECT full_name FROM users WHERE username = ?",
+            "SELECT full_name FROM users WHERE email = ?",
             arrayOf(email)
         )
 
