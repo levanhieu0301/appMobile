@@ -133,6 +133,22 @@ class AppDatabase(context: Context) : SQLiteOpenHelper(
                     "price REAL," +
                     "created_at TEXT)"
         )
+        // 6. Bổ sung: Bảng Đặt lịch (Dùng cho Client đặt lịch mới)
+        db.execSQL(
+            "CREATE TABLE bookings (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "user_id INTEGER," +
+                    "car_brand TEXT," +
+                    "services TEXT," +
+                    "booking_date TEXT," +
+                    "booking_time TEXT," +
+                    "promo_code TEXT," +
+                    "total_price REAL," +
+                    "final_price REAL," +
+                    "note TEXT," +
+                    "status TEXT DEFAULT 'PENDING'," +
+                    "created_at TEXT)"
+        )
     }
 
 

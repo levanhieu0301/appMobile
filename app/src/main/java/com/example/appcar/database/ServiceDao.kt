@@ -1,5 +1,6 @@
 package com.example.appcar.database
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -36,6 +37,8 @@ class ServiceDao(private val context: Context) {
     fun deleteService(id: Int): Int {
         return db.delete("services", "id_service=?", arrayOf(id.toString()))
     }
+
+    @SuppressLint("DiscouragedApi")
     fun getAllServicesList(): List<ServiceItem> {
         val list = mutableListOf<ServiceItem>()
 
@@ -50,14 +53,19 @@ class ServiceDao(private val context: Context) {
                 val name = cursor.getString(1)
                 val price = cursor.getDouble(2)
                 val desc = cursor.getString(3)
-                val imageName = cursor.getString(4) // lấy tên ảnh từ DB
+                
+                // 🔥 SỬA LỖI Ở ĐÂY: Kiểm tra null trước khi gọi getIdentifier
+                val imageName = if (cursor.isNull(4)) "" else cursor.getString(4)
 
-                // 🔥 convert tên ảnh -> drawable
-                val imageResId = context.resources.getIdentifier(
-                    imageName,
-                    "drawable",
-                    context.packageName
-                )
+                val imageResId = if (imageName.isNotEmpty()) {
+                    context.resources.getIdentifier(
+                        imageName,
+                        "drawable",
+                        context.packageName
+                    )
+                } else {
+                    0
+                }
 
                 list.add(
                     ServiceItem(

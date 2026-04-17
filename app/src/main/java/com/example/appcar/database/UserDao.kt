@@ -227,6 +227,32 @@ fun getUserCredentials(email: String): Pair<String, String>? {
             null
         )
     }
+
+    // hàm này để lấy ID người dùng từ Email
+    fun getUserIdByEmail(email: String): Int? {
+        val cursor = db.rawQuery("SELECT id FROM users WHERE email = ?", arrayOf(email))
+        return if (cursor.moveToFirst()) {
+            val id = cursor.getInt(0)
+            cursor.close()
+            id
+        } else {
+            cursor.close()
+            null
+        }
+    }
+
+    // hàm này để lấy Số điện thoại người dùng từ Email
+    fun getUserPhoneByEmail(email: String): String {
+        val cursor = db.rawQuery("SELECT phone FROM users WHERE email = ?", arrayOf(email))
+        return if (cursor.moveToFirst()) {
+            val phone = cursor.getString(0) ?: ""
+            cursor.close()
+            phone
+        } else {
+            cursor.close()
+            ""
+        }
+    }
     fun getFullNameByEmail(email: String): String? {
         val cursor = db.rawQuery(
             "SELECT full_name FROM users WHERE email = ?",
