@@ -66,6 +66,9 @@
         <activity
             android:name=".HistoryActivity"
             android:exported="false" />
+        <activity
+            android:name=".BookingActivity"
+            android:exported="false" />
 <!--        <activity-->
 <!--            android:name=".HistoryActivity"-->
 <!--            android:exported="true">-->

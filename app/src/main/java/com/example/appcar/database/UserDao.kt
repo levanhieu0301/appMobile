@@ -96,4 +96,15 @@ class UserDAO(context: Context) {
         cursor.close()
         return fullName
     }
+
+    fun getUserIdByEmail(email: String): Int? {
+        val cursor = db.rawQuery("SELECT id FROM users WHERE username = ?", arrayOf(email))
+        if (cursor.moveToFirst()) {
+            val id = cursor.getInt(0)
+            cursor.close()
+            return id
+        }
+        cursor.close()
+        return null
+    }
 }

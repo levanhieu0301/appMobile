@@ -52,6 +52,12 @@ class LoginActivity : AppCompatActivity() {
                 if (hashedInput == dbPasswordHash) {
                     Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show()
 
+                    val sharedPref = getSharedPreferences("AppPref", MODE_PRIVATE)
+                    with(sharedPref.edit()) {
+                        putString("user_email", email)
+                        apply()
+                    }
+
                     // Chuyển trang dựa trên Role
                     if (role.lowercase() == "admin") {
                         val intent = Intent(this, AdminActivity::class.java)

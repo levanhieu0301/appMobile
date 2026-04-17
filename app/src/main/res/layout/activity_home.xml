@@ -36,4 +36,12 @@
         android:layout_marginTop="30dp"
         android:backgroundTint="#455A64"
         android:textColor="#FFFFFF"/>
+    <Button
+        android:id="@+id/btnBooking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đặt lịch bảo dưỡng"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#7C3AED"
+        android:textColor="#FFFFFF" />
 </LinearLayout>

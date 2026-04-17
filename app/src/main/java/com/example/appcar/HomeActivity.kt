@@ -16,5 +16,9 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        findViewById<Button>(R.id.btnBooking).setOnClickListener {
+            startActivity(Intent(this, BookingActivity::class.java))
+        }
     }
 }

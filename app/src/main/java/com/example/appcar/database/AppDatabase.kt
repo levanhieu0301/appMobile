@@ -46,6 +46,16 @@ class AppDatabase(context: Context) : SQLiteOpenHelper(
                     "status TEXT," +
                     "price INTEGER)"
         )
+        db.execSQL(
+            "CREATE TABLE bookings (" +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "user_id INTEGER NOT NULL," +
+                    "service_type TEXT NOT NULL," +
+                    "booking_date TEXT NOT NULL," +  // yyyy-MM-dd
+                    "status TEXT NOT NULL," +        // PENDING, CONFIRMED, COMPLETED
+                    "created_at TEXT NOT NULL," +
+                    "FOREIGN KEY(user_id) REFERENCES users(id))"
+        )
     }
 
 
