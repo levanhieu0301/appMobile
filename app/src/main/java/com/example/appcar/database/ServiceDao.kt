@@ -12,26 +12,32 @@ class ServiceDao(private val context: Context) {
     private val dbHelper = AppDatabase(context)
     private val db: SQLiteDatabase = dbHelper.writableDatabase
 
-    fun insertService(name: String, price: Double, desc: String): Long {
-        val v = ContentValues().apply {
+    fun insertService(name: String, price: Double, desc: String, duration: Int, image: String): Long {
+        val values = ContentValues().apply {
             put("name_service", name)
             put("price_service", price)
             put("description", desc)
+            put("duration", duration)
+            put("image", image)
+            put("is_active", 1)
+            put("created_at", java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault()).format(java.util.Date()))
         }
-        return db.insert("services", null, v)
+        return db.insert("services", null, values)
     }
 
     fun getAllServices(): Cursor {
-        return db.rawQuery("SELECT id_service as _id, name_service, price_service, description FROM services", null)
+        return db.rawQuery("SELECT id_service as _id, name_service, price_service, description, duration, image FROM services", null)
     }
 
-    fun updateService(id: Int, name: String, price: Double, desc: String): Int {
-        val v = ContentValues().apply {
+    fun updateService(id: Int, name: String, price: Double, desc: String, duration: Int, image: String): Int {
+        val values = ContentValues().apply {
             put("name_service", name)
             put("price_service", price)
             put("description", desc)
+            put("duration", duration)
+            put("image", image)
         }
-        return db.update("services", v, "id_service=?", arrayOf(id.toString()))
+        return db.update("services", values, "id_service = ?", arrayOf(id.toString()))
     }
 
     fun deleteService(id: Int): Int {
