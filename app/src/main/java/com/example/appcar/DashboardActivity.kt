@@ -78,5 +78,9 @@ class DashboardActivity : AppCompatActivity() {
         findViewById<MaterialCardView>(R.id.btnTransactionHistory).setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
         }
+
+        findViewById<MaterialCardView>(R.id.btnManageService).setOnClickListener {
+            startActivity(Intent(this, ServiceManagementActivity::class.java))
+        }
     }
 }
