@@ -4,10 +4,93 @@ package com.example.appcar.database
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class UserDAO(context: Context) {
     private val dbHelper = AppDatabase(context)
     private val db = dbHelper.writableDatabase
+
+    // Lấy đối tượng User theo id (trả về User, không phải Cursor)
+    fun getUserByIdAsObject(id: Int): User? {
+        val cursor = db.rawQuery("SELECT * FROM users WHERE id = ?", arrayOf(id.toString()))
+        return cursor.use {
+            if (it.moveToFirst()) {
+                User(
+                    id = it.getInt(it.getColumnIndexOrThrow("id")),
+                    fullName = it.getString(it.getColumnIndexOrThrow("full_name")),
+                    username = it.getString(it.getColumnIndexOrThrow("username")),
+                    password = it.getString(it.getColumnIndexOrThrow("password")),
+                    phone = it.getString(it.getColumnIndexOrThrow("phone")),
+                    email = it.getString(it.getColumnIndexOrThrow("email")),
+                    address = it.getString(it.getColumnIndexOrThrow("address")),
+                    avatar = it.getString(it.getColumnIndexOrThrow("avatar")),
+                    gender = it.getString(it.getColumnIndexOrThrow("gender")),
+                    dateOfBirth = it.getString(it.getColumnIndexOrThrow("date_of_birth")),
+                    role = it.getString(it.getColumnIndexOrThrow("role")),
+                    createdAt = it.getString(it.getColumnIndexOrThrow("created_at")),
+                    updatedAt = it.getString(it.getColumnIndexOrThrow("updated_at"))
+                )
+            } else null
+        }
+    }
+
+    // Cập nhật toàn bộ thông tin user (trừ id, password nếu không đổi)
+    fun updateUserInfo(user: User): Int {
+        val values = ContentValues().apply {
+            put("full_name", user.fullName)
+            put("username", user.username)
+            put("email", user.email)
+            put("phone", user.phone)
+            put("address", user.address)
+            put("avatar", user.avatar)
+            put("gender", user.gender)
+            put("date_of_birth", user.dateOfBirth)
+            put("role", user.role)
+            put("updated_at", user.updatedAt)
+        }
+        return db.update("users", values, "id = ?", arrayOf(user.id.toString()))
+    }
+
+    // Cập nhật mật khẩu
+    fun updatePassword(userId: Int, newPassword: String): Int {
+        val values = ContentValues().apply {
+            put("password", newPassword)
+        }
+        return db.update("users", values, "id = ?", arrayOf(userId.toString()))
+    }
+
+    // Cập nhật thông tin cơ bản (dùng cho Profile)
+    fun updateUserBasicInfo(
+        userId: Int,
+        username: String,
+        email: String,
+        phone: String,
+        address: String
+    ): Int {
+        val values = ContentValues().apply {
+            put("username", username)
+            put("email", email)
+            put("phone", phone)
+            put("address", address)
+        }
+        return db.update("users", values, "id = ?", arrayOf(userId.toString()))
+    }
+
+    // Thêm vào class UserDAO
+    fun getUserIdByEmail(email: String): Int? {
+        val cursor = db.rawQuery("SELECT id FROM users WHERE email = ?", arrayOf(email))
+        return if (cursor.moveToFirst()) {
+            val id = cursor.getInt(0)
+            cursor.close()
+            id
+        } else {
+            cursor.close()
+            null
+        }
+    }
+
     // data mới
     // INSERT FULL (đăng ký)
     fun insertFull(
@@ -19,6 +102,7 @@ class UserDAO(context: Context) {
         password: String,
         role: String
     ): Long {
+        val today = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
         val values = ContentValues().apply {
             put("full_name", fullName)
             put("username", username)
@@ -27,6 +111,7 @@ class UserDAO(context: Context) {
             put("address", address)
             put("password", password)
             put("role", role)
+            put("created_at", today)
         }
         return db.insert("users", null, values)
     }
@@ -129,33 +214,21 @@ class UserDAO(context: Context) {
         return db.update("users", values, "id = ?", arrayOf(id.toString()))
     }
 
-    // Update password
-    fun updatePassword(id: Int, password: String): Int {
-        val values = ContentValues().apply {
-            put("password", password)
-        }
-        return db.update("users", values, "id = ?", arrayOf(id.toString()))
-    }
+//    // Update password
+//    fun updatePassword(id: Int, password: String): Int {
+//        val values = ContentValues().apply {
+//            put("password", password)
+//        }
+//        return db.update("users", values, "id = ?", arrayOf(id.toString()))
+//    }
 
     // Delete user
     fun deleteUser(id: Int): Int {
         return db.delete("users", "id = ?", arrayOf(id.toString()))
     }
-
-
     // End data mới
-
-//    fun insert(fullName: String, username: String, password: String, role: String): Long {
-//        val values = ContentValues().apply {
-//            put("full_name", fullName)
-//            put("username", username)
-//            put("password", password)
-//            put("role", role)
-//        }
-//        return db.insert("users", null, values)
-//    }
-
     fun insert(fullName: String, email: String, pass: String, phone: String, address: String, role: String): Long {
+        val today = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
         val values = ContentValues().apply {
             put("full_name", fullName)
             put("username", email)
@@ -163,6 +236,7 @@ class UserDAO(context: Context) {
             put("phone", phone)
             put("address", address)
             put("role", role)
+            put("created_at", today)
         }
         return db.insert("users", null, values)
     }
@@ -261,5 +335,19 @@ fun getUserCredentials(email: String): Pair<String, String>? {
             put("role", role)
         }
         return db.update("users", values, "id = ?", arrayOf(id.toString()))
+    }
+
+    fun getNewUsersToday(): Int {
+        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val cursor = db.rawQuery(
+            "SELECT COUNT(*) FROM users WHERE role = 'user' AND created_at LIKE ?",
+            arrayOf("$today%")
+        )
+        var count = 0
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0)
+        }
+        cursor.close()
+        return count
     }
 }
