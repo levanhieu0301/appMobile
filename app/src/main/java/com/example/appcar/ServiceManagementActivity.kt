@@ -14,6 +14,7 @@ import com.example.appcar.adapter.MaintenanceService
 import com.example.appcar.adapter.ServiceAdapter
 import com.example.appcar.database.ServiceDao
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.textfield.TextInputEditText
 
 class ServiceManagementActivity : AppCompatActivity() {
 
@@ -32,7 +33,7 @@ class ServiceManagementActivity : AppCompatActivity() {
 
         adapter = ServiceAdapter(serviceList,
             onDeleteClick = { service -> confirmDelete(service) },
-            onEditClick = { service -> showServiceDialog(service) }
+            onEditClick = { service -> showEditServiceDialog(service) }
         )
         rvServices.layoutManager = LinearLayoutManager(this)
         rvServices.adapter = adapter
@@ -44,7 +45,7 @@ class ServiceManagementActivity : AppCompatActivity() {
         }
 
         fabAdd.setOnClickListener {
-            showServiceDialog()
+            showAddServiceDialog()
         }
     }
 
@@ -57,61 +58,91 @@ class ServiceManagementActivity : AppCompatActivity() {
                 val name = cursor.getString(cursor.getColumnIndexOrThrow("name_service"))
                 val price = cursor.getDouble(cursor.getColumnIndexOrThrow("price_service"))
                 val desc = cursor.getString(cursor.getColumnIndexOrThrow("description"))
-                serviceList.add(MaintenanceService(id, name, price, desc))
+                val duration = cursor.getInt(cursor.getColumnIndexOrThrow("duration"))
+                val image = cursor.getString(cursor.getColumnIndexOrThrow("image"))
+
+                serviceList.add(MaintenanceService(id, name, price, desc, duration, image))
             } while (cursor.moveToNext())
         }
         cursor.close()
         adapter.notifyDataSetChanged()
     }
 
-    // --- DIALOG THÊM / SỬA DỊCH VỤ ---
-    private fun showServiceDialog(service: MaintenanceService? = null) {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(if (service == null) "Thêm Dịch Vụ Mới" else "Cập Nhật Dịch Vụ")
+    private fun showAddServiceDialog() {
+        val builder = com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+        builder.setTitle("Thêm Dịch Vụ Mới")
 
-        val layout = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(50, 40, 50, 10)
-        }
+        val view = layoutInflater.inflate(R.layout.dialog_add_service, null)
+        builder.setView(view)
 
-        val edtName = EditText(this).apply {
-            hint = "Tên dịch vụ (VD: Thay dầu)"
-            setText(service?.name)
-        }
-        val edtPrice = EditText(this).apply {
-            hint = "Giá tiền (VNĐ)"
-            inputType = InputType.TYPE_CLASS_NUMBER
-            setText(service?.price?.toInt()?.toString())
-        }
-        val edtDesc = EditText(this).apply {
-            hint = "Mô tả ngắn gọn"
-            setText(service?.description)
-        }
+        val edtName = view.findViewById<TextInputEditText>(R.id.edtServiceName)
+        val edtPrice = view.findViewById<TextInputEditText>(R.id.edtServicePrice)
+        val edtDuration = view.findViewById<TextInputEditText>(R.id.edtServiceDuration)
+        val edtImage = view.findViewById<TextInputEditText>(R.id.edtServiceImage)
+        val edtDesc = view.findViewById<TextInputEditText>(R.id.edtServiceDescription)
 
-        layout.addView(edtName)
-        layout.addView(edtPrice)
-        layout.addView(edtDesc)
-        builder.setView(layout)
-
-        builder.setPositiveButton("Lưu") { _, _ ->
+        builder.setPositiveButton("Thêm") { dialog, _ ->
             val name = edtName.text.toString().trim()
-            val priceStr = edtPrice.text.toString().trim()
+            val price = edtPrice.text.toString().toDoubleOrNull() ?: 0.0
+            val duration = edtDuration.text.toString().toIntOrNull() ?: 0
+            val image = edtImage.text.toString().trim()
             val desc = edtDesc.text.toString().trim()
 
-            if (name.isNotEmpty() && priceStr.isNotEmpty()) {
-                val price = priceStr.toDouble()
-                if (service == null) {
-                    serviceDao.insertService(name, price, desc)
-                    Toast.makeText(this, "Đã thêm dịch vụ", Toast.LENGTH_SHORT).show()
-                } else {
-                    serviceDao.updateService(service.id, name, price, desc)
-                    Toast.makeText(this, "Đã cập nhật", Toast.LENGTH_SHORT).show()
+            if (name.isNotEmpty() && price > 0) {
+                // Truyền đủ 5 tham số vào DAO
+                val result = serviceDao.insertService(name, price, desc, duration, image)
+                if (result > 0) {
+                    loadData()
+                    Toast.makeText(this, "Thêm thành công!", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
                 }
-                loadData()
-            } else {
-                Toast.makeText(this, "Vui lòng nhập đủ Tên và Giá!", Toast.LENGTH_SHORT).show()
             }
         }
+        builder.setNegativeButton("Hủy", null)
+        builder.show()
+    }
+
+    private fun showEditServiceDialog(service: MaintenanceService) {
+        val builder = com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+        builder.setTitle("Chỉnh Sửa Dịch Vụ")
+
+        val view = layoutInflater.inflate(R.layout.dialog_add_service, null)
+        builder.setView(view)
+
+        val edtName = view.findViewById<TextInputEditText>(R.id.edtServiceName)
+        val edtPrice = view.findViewById<TextInputEditText>(R.id.edtServicePrice)
+        val edtDuration = view.findViewById<TextInputEditText>(R.id.edtServiceDuration)
+        val edtImage = view.findViewById<TextInputEditText>(R.id.edtServiceImage)
+        val edtDesc = view.findViewById<TextInputEditText>(R.id.edtServiceDescription)
+
+        edtName.setText(service.name)
+        edtPrice.setText(service.price.toString())
+        edtDuration.setText(service.duration.toString())
+        edtImage.setText(service.image)
+        edtDesc.setText(service.description)
+
+        builder.setPositiveButton("Cập nhật") { dialog, _ ->
+            val name = edtName.text.toString().trim()
+            val price = edtPrice.text.toString().toDoubleOrNull() ?: 0.0
+            val duration = edtDuration.text.toString().toIntOrNull() ?: 0
+            val image = edtImage.text.toString().trim()
+            val desc = edtDesc.text.toString().trim()
+
+            if (name.isNotEmpty() && price > 0) {
+                val result = serviceDao.updateService(service.id, name, price, desc, duration, image)
+
+                if (result > 0) {
+                    loadData()
+                    Toast.makeText(this, "Cập nhật thành công!", Toast.LENGTH_SHORT).show()
+                    dialog.dismiss()
+                } else {
+                    Toast.makeText(this, "Không có thay đổi nào được lưu", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this, "Vui lòng nhập tên và giá hợp lệ!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         builder.setNegativeButton("Hủy", null)
         builder.show()
     }

@@ -13,7 +13,7 @@
         android:theme="@style/Theme.AppCar">
 
         <activity
-            android:name=".LoginActivity"
+            android:name=".ServiceManagementActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,10 +59,10 @@
             android:name=".AdminManagementActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".ServiceManagementActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+<!--        <activity-->
+<!--            android:name=".ServiceManagementActivity"-->
+<!--            android:exported="false"-->
+<!--            android:windowSoftInputMode="adjustPan" />-->
         <activity
             android:name=".RepairHistoryActivity"
             android:exported="false" />
