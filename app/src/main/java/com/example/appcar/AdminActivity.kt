@@ -61,6 +61,10 @@ class AdminActivity : AppCompatActivity() {
             startActivity(Intent(this, ServiceManagementActivity::class.java))
         }
 
+        findViewById<TextView>(R.id.service).setOnClickListener {
+            startActivity(Intent(this, ServiceManagementActivity::class.java))
+        }
+
         findViewById<TextView>(R.id.menuLogout).setOnClickListener {
 
             //Xóa session nếu có (optional)

@@ -31,7 +31,7 @@
             android:layout_marginStart="16dp"
             android:text="KAI"
             android:textColor="#1E1B4B"
-            android:textSize="28sp"
+            android:textSize="26sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/llActions"
             app:layout_constraintStart_toEndOf="@id/accentBar"
@@ -48,6 +48,28 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/tvCode"
             app:layout_constraintTop_toBottomOf="@+id/tvCode" />
+
+        <ImageView
+            android:id="@+id/ivCalendar"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="8dp"
+            android:src="@android:drawable/ic_menu_my_calendar"
+            app:layout_constraintStart_toStartOf="@+id/tvCode"
+            app:layout_constraintTop_toBottomOf="@+id/tvDiscount"
+            app:tint="#6B7280" />
+
+        <TextView
+            android:id="@+id/tvExpiry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:text="Hết hạn: 2026-04-20"
+            android:textColor="#6B7280"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivCalendar"
+            app:layout_constraintStart_toEndOf="@+id/ivCalendar"
+            app:layout_constraintTop_toTopOf="@+id/ivCalendar" />
 
         <LinearLayout
             android:id="@+id/llActions"
@@ -82,44 +104,22 @@
             android:id="@+id/divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:background="#F3F4F6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvCode"
-            app:layout_constraintTop_toBottomOf="@+id/tvDiscount" />
-
-        <ImageView
-            android:id="@+id/ivCalendar"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="12dp"
-            android:src="@android:drawable/ic_menu_my_calendar"
-            app:layout_constraintStart_toStartOf="@+id/tvCode"
-            app:layout_constraintTop_toBottomOf="@+id/divider"
-            app:tint="#6B7280" />
-
-        <TextView
-            android:id="@+id/tvExpiry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Hết hạn: 2026-04-20"
-            android:textColor="#6B7280"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ivCalendar"
-            app:layout_constraintStart_toEndOf="@+id/ivCalendar"
-            app:layout_constraintTop_toTopOf="@+id/ivCalendar" />
+            app:layout_constraintTop_toBottomOf="@+id/tvExpiry" />
 
         <TextView
             android:id="@+id/tvUsage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:text="Đã dùng: 0 / 3"
             android:textColor="#9CA3AF"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@+id/tvCode"
-            app:layout_constraintTop_toBottomOf="@+id/tvExpiry" />
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -62,6 +62,13 @@ class LoginActivity : AppCompatActivity() {
 
                 // 5. So sánh password
                 if (hashedInput == dbPasswordHash) {
+
+                    val sharedPref = getSharedPreferences("AppPref", MODE_PRIVATE)
+                    with(sharedPref.edit()) {
+                        putString("user_email", email)
+                        apply()
+                    }
+
                     // Lấy userId từ email
                     val userId = userDAO.getUserIdByEmail(email)
                     if (userId != null) {
