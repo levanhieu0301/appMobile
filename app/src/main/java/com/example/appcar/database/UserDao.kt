@@ -4,6 +4,9 @@ package com.example.appcar.database
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class UserDAO(context: Context) {
     private val dbHelper = AppDatabase(context)
@@ -99,6 +102,7 @@ class UserDAO(context: Context) {
         password: String,
         role: String
     ): Long {
+        val today = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
         val values = ContentValues().apply {
             put("full_name", fullName)
             put("username", username)
@@ -107,6 +111,7 @@ class UserDAO(context: Context) {
             put("address", address)
             put("password", password)
             put("role", role)
+            put("created_at", today)
         }
         return db.insert("users", null, values)
     }
@@ -226,11 +231,13 @@ class UserDAO(context: Context) {
     // End data mới
 
     fun insert(fullName: String, username: String, password: String, role: String): Long {
+        val today = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
         val values = ContentValues().apply {
             put("full_name", fullName)
             put("username", username)
             put("password", password)
             put("role", role)
+            put("created_at", today)
         }
         return db.insert("users", null, values)
     }
@@ -330,5 +337,19 @@ fun getUserCredentials(email: String): Pair<String, String>? {
             put("role", role)
         }
         return db.update("users", values, "id = ?", arrayOf(id.toString()))
+    }
+
+    fun getNewUsersToday(): Int {
+        val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val cursor = db.rawQuery(
+            "SELECT COUNT(*) FROM users WHERE role = 'user' AND created_at LIKE ?",
+            arrayOf("$today%")
+        )
+        var count = 0
+        if (cursor.moveToFirst()) {
+            count = cursor.getInt(0)
+        }
+        cursor.close()
+        return count
     }
 }
