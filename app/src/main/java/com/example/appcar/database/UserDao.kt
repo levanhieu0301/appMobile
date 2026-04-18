@@ -226,22 +226,20 @@ class UserDAO(context: Context) {
     fun deleteUser(id: Int): Int {
         return db.delete("users", "id = ?", arrayOf(id.toString()))
     }
-
-
     // End data mới
-
-    fun insert(fullName: String, username: String, password: String, role: String): Long {
+    fun insert(fullName: String, email: String, pass: String, phone: String, address: String, role: String): Long {
         val today = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
         val values = ContentValues().apply {
             put("full_name", fullName)
-            put("username", username)
-            put("password", password)
+            put("username", email)
+            put("password", pass)
+            put("phone", phone)
+            put("address", address)
             put("role", role)
             put("created_at", today)
         }
         return db.insert("users", null, values)
     }
-
 
     fun updateAdmin(id: Int, newUsername: String, newRole: String): Int {
         val values = ContentValues().apply {
