@@ -1,5 +1,6 @@
 package com.example.appcar
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -43,9 +44,20 @@ class ManagePromotionActivity : AppCompatActivity() {
                 startActivity(intent)
             },
             onDeleteClick = { promotion ->
-                dao.deleteById(promotion.id)
-                loadData()
-                Toast.makeText(this, "Đã xoá mã ${promotion.code}", Toast.LENGTH_SHORT).show()
+                // 🔥 SỬA LỖI Ở ĐÂY: Thêm Dialog xác nhận trước khi xóa
+                AlertDialog.Builder(this)
+                    .setTitle("Xác nhận xóa")
+                    .setMessage("Bạn có chắc chắn muốn xóa mã khuyến mãi '${promotion.code}' không?")
+                    .setPositiveButton("Xóa") { _, _ ->
+                        if (dao.deleteById(promotion.id) > 0) {
+                            Toast.makeText(this, "Đã xoá mã ${promotion.code}", Toast.LENGTH_SHORT).show()
+                            loadData()
+                        } else {
+                            Toast.makeText(this, "Xóa thất bại", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    .setNegativeButton("Hủy", null)
+                    .show()
             }
         )
         rvPromotions.adapter = adapter

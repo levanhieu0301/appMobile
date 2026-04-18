@@ -226,15 +226,15 @@ class BookingClientActivity : AppCompatActivity() {
 
         val booking = Booking(
             userId = currentUserId,
-            name = "",
-            phone = phone,
-            serviceType = services,
+            carBrand = brand,
+            services = services,
             bookingDate = date,
-            time = time,
-            loc = "Tại trung tâm",
+            bookingTime = time,
+            promoCode = promoCode,
+            totalPrice = totalPrice,
+            finalPrice = finalPrice,
             note = note,
             status = "PENDING",
-            price = finalPrice,
             createdAt = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date())
         )
 
