@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appcar.adapter.AppointmentAdapter
@@ -72,6 +71,11 @@ class HistoryActivity : AppCompatActivity() {
             loadData()
         }
 
+        binding.btnPending.setOnClickListener {
+            updateTabUI(binding.btnPending)
+            filterDataByStatus("Chờ xác nhận")
+        }
+
         binding.btnDone.setOnClickListener {
             updateTabUI(binding.btnDone)
             filterDataByStatus("CONFIRMED") // Thay đổi từ "Hoàn thành"
@@ -84,15 +88,15 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun updateTabUI(selectedTab: TextView) {
-        // Reset tất cả tab về trạng thái chưa chọn
-        val tabs = listOf(binding.btnAll, binding.btnDone, binding.btnCancel)
+        val tabs = listOf(binding.btnAll, binding.btnPending, binding.btnDone, binding.btnCancel)
         for (tab in tabs) {
             tab.setBackgroundColor(Color.TRANSPARENT)
             tab.setTextColor(Color.parseColor("#546E7A"))
+            tab.typeface = android.graphics.Typeface.DEFAULT
         }
-        // Highlight tab được chọn
         selectedTab.setBackgroundColor(Color.parseColor("#3F51B5"))
         selectedTab.setTextColor(Color.WHITE)
+        selectedTab.typeface = android.graphics.Typeface.DEFAULT_BOLD
     }
 
     private fun setupSearch() {
@@ -171,7 +175,7 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun filterDataByStatus(status: String) {
-        val filtered = fullList.filter { it.status == status }
+        val filtered = if (status == "Tất cả") fullList else fullList.filter { it.status == status }
         appointmentList.clear()
         appointmentList.addAll(filtered)
         adapter.notifyDataSetChanged()

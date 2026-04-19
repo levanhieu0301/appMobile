@@ -3,12 +3,13 @@ package com.example.appcar
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.appcar.database.RepairHistoryDAO
 import com.example.appcar.database.UserDAO
 import com.google.android.material.card.MaterialCardView
+import java.util.Locale
 
 class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,10 +22,14 @@ class DashboardActivity : AppCompatActivity() {
         val tvStatRevenue = findViewById<TextView>(R.id.tvStatRevenue)
         val btnLogoutAdmin = findViewById<ImageButton>(R.id.btnLogoutAdmin)
         val btnBack = findViewById<ImageButton>(R.id.btnBack)
-        
+
+        // Khởi tạo DAO
         val userDAO = UserDAO(this)
+        val repairDAO = RepairHistoryDAO(this)
+
         // Quay lại login
         btnBack.setOnClickListener { finish() }
+
         // 2. Hiển thị thông tin Admin
         val email = intent.getStringExtra("EMAIL")
         if (email != null) {
@@ -32,19 +37,16 @@ class DashboardActivity : AppCompatActivity() {
             txtAdminInfo.text = "Chào mừng trở lại, ${fullName ?: "Admin"}"
         }
 
-        // 3. Cập nhật thông số thống kê giả định
-        tvStatUser.text = "+24"
-        tvStatRevenue.text = "2.4M VNĐ"
-        // viết hàm đếm số người dùng mới trong ngày trong UserDAO
-//        val newUserCount = userDAO.getNewUsersToday()
-//        tvStatUser.text = "+$newUserCount"
-//
-//        // viết hàm tính tổng tiền sửa xe hôm nay
-//        val dailyRevenue = repairDAO.getTodayRevenue()
-//        tvStatRevenue.text = String.format("%,2d VNĐ", dailyRevenue)
+        // 3. Cập nhật thông số thống kê
+        val newUserCount = userDAO.getNewUsersToday()
+        tvStatUser.text = "+$newUserCount"
+
+        // Tính tổng tiền sửa xe
+        val dailyRevenue = repairDAO.getTodayRevenue()
+        tvStatRevenue.text = String.format(Locale.getDefault(), "%,.0f VNĐ", dailyRevenue)
+
         // 4. Thiết lập sự kiện cho các Card Menu chính
         setupCardMenu()
-
 
         // 6. Xử lý Đăng xuất
         btnLogoutAdmin.setOnClickListener {
@@ -76,6 +78,9 @@ class DashboardActivity : AppCompatActivity() {
         findViewById<MaterialCardView>(R.id.btnTransactionHistory).setOnClickListener {
             startActivity(Intent(this, HistoryActivity::class.java))
         }
-    }
 
+        findViewById<MaterialCardView>(R.id.btnManageService).setOnClickListener {
+            startActivity(Intent(this, ServiceManagementActivity::class.java))
+        }
+    }
 }
