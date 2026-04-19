@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.appcar.adapter.AppointmentAdapter
 import com.example.appcar.database.AppointmentDAO
@@ -91,10 +93,10 @@ class HistoryActivity : AppCompatActivity() {
         val tabs = listOf(binding.btnAll, binding.btnPending, binding.btnDone, binding.btnCancel)
         for (tab in tabs) {
             tab.setBackgroundColor(Color.TRANSPARENT)
-            tab.setTextColor(Color.parseColor("#546E7A"))
+            tab.setTextColor("#546E7A".toColorInt())
             tab.typeface = android.graphics.Typeface.DEFAULT
         }
-        selectedTab.setBackgroundColor(Color.parseColor("#3F51B5"))
+        selectedTab.setBackgroundColor("#3F51B5".toColorInt())
         selectedTab.setTextColor(Color.WHITE)
         selectedTab.typeface = android.graphics.Typeface.DEFAULT_BOLD
     }
