@@ -77,22 +77,6 @@ class UserDAO(context: Context) {
         }
         return db.update("users", values, "id = ?", arrayOf(userId.toString()))
     }
-
-    // Thêm vào class UserDAO
-    fun getUserIdByEmail(email: String): Int? {
-        val cursor = db.rawQuery("SELECT id FROM users WHERE email = ?", arrayOf(email))
-        return if (cursor.moveToFirst()) {
-            val id = cursor.getInt(0)
-            cursor.close()
-            id
-        } else {
-            cursor.close()
-            null
-        }
-    }
-
-    // data mới
-    // INSERT FULL (đăng ký)
     fun insertFull(
         fullName: String,
         username: String,
