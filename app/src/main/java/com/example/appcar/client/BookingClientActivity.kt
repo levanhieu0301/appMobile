@@ -188,7 +188,7 @@ class BookingClientActivity : AppCompatActivity() {
         val discount = totalPrice * (discountPercent / 100.0)
         finalPrice = totalPrice - discount
 
-        tvTotalPrice.text = "Tổng tiền dịch vụ: ${String.format("%,.0f", totalPrice)}đ"
+        tvTotalPrice.text = "Chi phí dự kiến: ${String.format("%,.0f", totalPrice)}đ"
         tvDiscountAmount.text = "Giảm giá ($discountPercent%): ${String.format("%,.0f", discount)}đ"
         tvFinalPrice.text = "Thành tiền: ${String.format("%,.0f", finalPrice)}đ"
     }

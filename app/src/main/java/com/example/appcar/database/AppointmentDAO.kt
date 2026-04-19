@@ -9,33 +9,28 @@ class AppointmentDAO(context: Context) {
     private val dbHelper = AppDatabase(context)
     private val db = dbHelper.writableDatabase
 
-    // Hàm lấy toàn bộ lịch sử đặt lịch
+    /* Code cũ lấy từ bảng appointments
     fun getAllAppointments(): Cursor {
         return db.rawQuery("SELECT id, name, date, loc, status, price FROM appointments ORDER BY date DESC", null)
     }
+    */
 
-    // Hàm thêm một lịch đặt mới (Dùng khi người dùng bấm đặt lịch)
-    fun insertAppointment(name: String, date: String, loc: String, status: String, price: Long): Long {
+    // Code mới lấy dữ liệu từ bảng bookings (nơi user đặt lịch)
+    fun getAllAppointmentsFromBookings(): Cursor {
+        return db.rawQuery("SELECT id, user_id, car_brand, services, booking_date, booking_time, status, final_price, note FROM bookings ORDER BY booking_date DESC, booking_time DESC", null)
+    }
+
+    // Hàm cập nhật trạng thái lịch hẹn dành cho Admin (Duyệt/Hủy)
+    fun updateBookingStatus(id: Int, newStatus: String): Int {
         val values = ContentValues().apply {
-            put("name", name)
-            put("date", date)
-            put("loc", loc)
-            put("status", status)
-            put("price", price)
+            put("status", newStatus)
         }
-        return db.insert("appointments", null, values)
+        return db.update("bookings", values, "id = ?", arrayOf(id.toString()))
     }
 
-    // Hàm lọc theo trạng thái (Hoàn thành / Đã hủy)
-    fun getAppointmentsByStatus(status: String): Cursor {
-        return db.rawQuery(
-            "SELECT id, name, date, loc, status, price FROM appointments WHERE status = ? ORDER BY date DESC",
-            arrayOf(status)
-        )
-    }
-
-    // Hàm xóa lịch đặt (nếu cần)
-    fun deleteAppointment(id: Int): Int {
-        return db.delete("appointments", "id = ?", arrayOf(id.toString()))
-    }
+    /* Các hàm cũ không còn phù hợp với bảng mới
+    fun insertAppointment(name: String, date: String, loc: String, status: String, price: Long): Long { ... }
+    fun getAppointmentsByStatus(status: String): Cursor { ... }
+    fun deleteAppointment(id: Int): Int { ... }
+    */
 }

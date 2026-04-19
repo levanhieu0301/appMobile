@@ -35,9 +35,32 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
+        /* Code cũ
         adapter = AppointmentAdapter(appointmentList)
         binding.rvHistory.layoutManager = LinearLayoutManager(this)
         binding.rvHistory.adapter = adapter
+        */
+        
+        // Code mới: Hỗ trợ callback Duyệt/Hủy
+        adapter = AppointmentAdapter(appointmentList, 
+            onConfirmClick = { appointment ->
+                updateStatus(appointment.id, "CONFIRMED")
+            },
+            onCancelClick = { appointment ->
+                updateStatus(appointment.id, "CANCELLED")
+            }
+        )
+        binding.rvHistory.layoutManager = LinearLayoutManager(this)
+        binding.rvHistory.adapter = adapter
+    }
+
+    private fun updateStatus(id: Int, status: String) {
+        if (appointmentDAO.updateBookingStatus(id, status) > 0) {
+            Toast.makeText(this, "Đã cập nhật trạng thái: $status", Toast.LENGTH_SHORT).show()
+            loadData()
+        } else {
+            Toast.makeText(this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupClickListeners() {
@@ -55,12 +78,12 @@ class HistoryActivity : AppCompatActivity() {
 
         binding.btnDone.setOnClickListener {
             updateTabUI(binding.btnDone)
-            filterDataByStatus("Hoàn thành")
+            filterDataByStatus("CONFIRMED") // Thay đổi từ "Hoàn thành"
         }
 
         binding.btnCancel.setOnClickListener {
             updateTabUI(binding.btnCancel)
-            filterDataByStatus("Đã hủy")
+            filterDataByStatus("CANCELLED") // Thay đổi từ "Đã hủy"
         }
     }
 
@@ -80,9 +103,20 @@ class HistoryActivity : AppCompatActivity() {
         binding.edtSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                /* Code cũ
                 val query = s.toString().lowercase()
                 val filteredList = fullList.filter { 
                     it.serviceName.lowercase().contains(query) || it.location.lowercase().contains(query)
+                }
+                appointmentList.clear()
+                appointmentList.addAll(filteredList)
+                adapter.notifyDataSetChanged()
+                */
+                
+                // Code mới: Tìm kiếm theo hãng xe hoặc dịch vụ
+                val query = s.toString().lowercase()
+                val filteredList = fullList.filter { 
+                    it.carBrand.lowercase().contains(query) || it.services.lowercase().contains(query)
                 }
                 appointmentList.clear()
                 appointmentList.addAll(filteredList)
@@ -93,6 +127,7 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun loadData() {
+        /* Code cũ
         appointmentList.clear()
         fullList.clear()
         val cursor = appointmentDAO.getAllAppointments()
@@ -106,6 +141,31 @@ class HistoryActivity : AppCompatActivity() {
                 val price = cursor.getLong(cursor.getColumnIndexOrThrow("price"))
 
                 val item = Appointment(id, name, date, loc, status, price)
+                appointmentList.add(item)
+                fullList.add(item)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        adapter.notifyDataSetChanged()
+        */
+
+        // Code mới: Lấy dữ liệu từ bảng bookings
+        appointmentList.clear()
+        fullList.clear()
+        val cursor = appointmentDAO.getAllAppointmentsFromBookings()
+        if (cursor.moveToFirst()) {
+            do {
+                val id = cursor.getInt(cursor.getColumnIndexOrThrow("id"))
+                val userId = cursor.getInt(cursor.getColumnIndexOrThrow("user_id"))
+                val carBrand = cursor.getString(cursor.getColumnIndexOrThrow("car_brand"))
+                val services = cursor.getString(cursor.getColumnIndexOrThrow("services"))
+                val date = cursor.getString(cursor.getColumnIndexOrThrow("booking_date"))
+                val time = cursor.getString(cursor.getColumnIndexOrThrow("booking_time"))
+                val status = cursor.getString(cursor.getColumnIndexOrThrow("status"))
+                val price = cursor.getDouble(cursor.getColumnIndexOrThrow("final_price"))
+                val note = cursor.getString(cursor.getColumnIndexOrThrow("note"))
+
+                val item = Appointment(id, userId, carBrand, services, date, time, status, price, note)
                 appointmentList.add(item)
                 fullList.add(item)
             } while (cursor.moveToNext())
