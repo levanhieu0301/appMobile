@@ -7,13 +7,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appcar.R
-
-data class User(
-    val id: Int,
-    val username: String,
-    val fullName: String,
-    val role: String
-)
+import com.example.appcar.database.User
 
 class AdminAdapter(
     private var adminList: MutableList<User>,
@@ -22,8 +16,10 @@ class AdminAdapter(
 ) : RecyclerView.Adapter<AdminAdapter.AdminViewHolder>() {
 
     class AdminViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val txtFullName: TextView = itemView.findViewById(R.id.txtAdminFullName)
         val txtEmail: TextView = itemView.findViewById(R.id.txtAdminEmail)
-        val txtRole: TextView = itemView.findViewById(R.id.txtAdminRole)
+        val txtPhone: TextView = itemView.findViewById(R.id.txtAdminPhone)
+        val txtAddress: TextView = itemView.findViewById(R.id.txtAdminAddress)
         val btnEdit: ImageButton = itemView.findViewById(R.id.btnEditAdmin)
         val btnDelete: ImageButton = itemView.findViewById(R.id.btnDeleteAdmin)
     }
@@ -37,8 +33,10 @@ class AdminAdapter(
     override fun onBindViewHolder(holder: AdminViewHolder, position: Int) {
         val admin = adminList[position]
 
+        holder.txtFullName.text = admin.fullName
         holder.txtEmail.text = admin.username
-        holder.txtRole.text = "Role: ${admin.role}"
+        holder.txtPhone.text = "SĐT: ${admin.phone}"
+        holder.txtAddress.text = "Địa chỉ: ${admin.address}"
 
         holder.btnDelete.setOnClickListener {
             onDeleteClick(admin)
@@ -51,8 +49,8 @@ class AdminAdapter(
 
     override fun getItemCount(): Int = adminList.size
 
-    fun updateData(newList: MutableList<User>) {
-        adminList = newList
+    fun updateData(newList: List<User>) {
+        adminList = newList.toMutableList()
         notifyDataSetChanged()
     }
 }

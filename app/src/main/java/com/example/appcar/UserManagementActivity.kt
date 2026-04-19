@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appcar.adapter.AdminAdapter
-import com.example.appcar.adapter.User
+import com.example.appcar.database.User
 import com.example.appcar.database.UserDAO
 
 class UserManagementActivity : AppCompatActivity() {

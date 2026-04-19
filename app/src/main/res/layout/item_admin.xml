@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="12dp"
-    android:layout_marginVertical="6dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,64 +16,81 @@
 
         <ImageView
             android:id="@+id/imgAvatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@android:drawable/ic_menu_myplaces"
+            android:padding="8dp"
+            android:background="#F0F2FF"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:tint="@color/design_default_color_primary" />
+            app:tint="#5E6AD2" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical"
             app:layout_constraintEnd_toStartOf="@+id/btnEditAdmin"
             app:layout_constraintStart_toEndOf="@+id/imgAvatar"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/txtAdminEmail"
-                android:layout_width="match_parent"
+                android:id="@+id/txtAdminFullName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="admin@email.com"
-                android:textColor="#000000"
-                android:textSize="16sp"
+                android:text="Name"
+                android:textColor="#212121"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/txtAdminRole"
-                android:layout_width="match_parent"
+                android:id="@+id/txtAdminEmail"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Role: Administrator"
+                android:text="email@example.com"
                 android:textColor="#757575"
                 android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txtAdminPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Phone"
+                android:textColor="#616161"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/txtAdminAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Address"
+                android:textColor="#616161"
+                android:textSize="13sp" />
         </LinearLayout>
 
         <ImageButton
             android:id="@+id/btnEditAdmin"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_edit"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnDeleteAdmin"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="#4CAF50" />
 
         <ImageButton
             android:id="@+id/btnDeleteAdmin"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@android:drawable/ic_menu_delete"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="#F44336" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
